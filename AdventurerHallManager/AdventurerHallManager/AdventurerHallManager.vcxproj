@@ -156,9 +156,11 @@
   <ItemGroup>
     <ClCompile Include="AdventurerHallManager.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Hall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Hall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
