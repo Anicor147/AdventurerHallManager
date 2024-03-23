@@ -1,11 +1,11 @@
 #include <iostream>;
 #include <random>
-#include <experimental/random>;
 using namespace std;
 
 struct Encounter
 {
 public:
+    string name;
     bool isBattle;
     int GetDamage()
     {
@@ -38,8 +38,9 @@ protected:
 public:
     Encounter() {  }
     ~Encounter() = default;
-    Encounter(bool is_battle, const string& description, int dmg, int hp)
-        : isBattle(is_battle),
+    Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp)
+        : name(name),
+          isBattle(is_battle),
           description(description),
           dmg(dmg),
           hp(hp)
@@ -62,17 +63,13 @@ public:
 private:
     string name;
     string description;
-    Encounter possibleEncounter1;
-    Encounter possibleEncounter2;
-    Encounter possibleEncounter3;
+    Encounter* possibleEncounters;
     Encounter chosenEncounter;
 protected:
 public:
     AdventurePoint()
     {
-        possibleEncounter1 = Encounter();
-        possibleEncounter2 = Encounter();
-        possibleEncounter3 = Encounter();
+        possibleEncounters = new Encounter[]{Encounter(), Encounter(), Encounter()};
         chosenEncounter = Encounter();
     }
 
@@ -82,9 +79,7 @@ public:
         : name(name),
           description(description)
     {
-        possibleEncounter1 = Encounter();
-        possibleEncounter2 = Encounter();
-        possibleEncounter3 = Encounter();
+        possibleEncounters = new Encounter[]{Encounter(), Encounter(), Encounter()};
         chosenEncounter = Encounter();
     }
 
@@ -92,15 +87,21 @@ public:
         : name(name),
           description(description)
     {
-        possibleEncounter1 = encounter_1;
-        possibleEncounter2 = encounter_2;
-        possibleEncounter3 = encounter_3;
+        possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
         chosenEncounter = ChooseEncounter();
+    }
+
+    void SetPossibleEncounters(Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
+    {
+        possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
     }
 
     Encounter ChooseEncounter()
     {
-     
+        
+        default_random_engine random = default_random_engine();
+        int index = (int)random.operator() %  3;
+        return possibleEncounters[index];
         
     }
 };
