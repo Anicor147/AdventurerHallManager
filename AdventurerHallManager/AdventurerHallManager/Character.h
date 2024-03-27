@@ -30,6 +30,8 @@ class Character
 public:
     int damage;
     int hp;
+    string name;
+    int level;
     Race race;
     Classe classe;
     
@@ -48,7 +50,5 @@ public:
 private:
     
 protected:
-    string name;
-    int level;
     
 };

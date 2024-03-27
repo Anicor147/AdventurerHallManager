@@ -1,4 +1,4 @@
-#include <iostream>;
+#include <iostream>
 #include <random>
 using namespace std;
 
@@ -88,7 +88,7 @@ public:
           description(description)
     {
         possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
-        chosenEncounter = ChooseEncounter();
+        //chosenEncounter = ChooseEncounter();
     }
 
     void SetPossibleEncounters(Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
@@ -96,12 +96,12 @@ public:
         possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
     }
 
-    Encounter ChooseEncounter()
-    {
-        
-        default_random_engine random = default_random_engine();
-        int index = (int)random.operator() %  3;
-        return possibleEncounters[index];
-        
-    }
+    // Encounter ChooseEncounter()
+    // {
+    //     
+    //     default_random_engine random = default_random_engine();
+    //     int index = (int)random.operator() %  3;
+    //     return possibleEncounters[index];
+    //     
+    // }
 };
