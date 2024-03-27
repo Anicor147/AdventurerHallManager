@@ -34,7 +34,7 @@ public:
     int level;
     Race race;
     Classe classe;
-    
+
     Character(int _damage, int _hp, Race _race, Classe _classe, const string& _name, int _level)
         : damage(_damage),
           hp(_hp),
@@ -42,13 +42,14 @@ public:
           classe(_classe),
           name(_name),
           level(_level)
-    {}
-    ~Character();
+    {
+    }
 
+    ~Character()
+    {
+    };
 
-    
 private:
-    
+
 protected:
-    
 };

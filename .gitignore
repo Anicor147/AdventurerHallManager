@@ -119,3 +119,4 @@ fabric.properties
 /.sonar/
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,c++,sonar
+/AdventurerHallManager/.idea/.idea.AdventurerHallManager/.idea/sonarlint
