@@ -44,10 +44,14 @@ public:
           level(_level)
     {
     }
-
-    ~Character()
+     void DisplayCharInfo()
     {
-    };
+        //switch pour la race et classe??
+        std::cout << "Name: " << name+"\t" << "Race: " << race+"\t"<<"Classe: " << classe+"\t"<<"Level: "<<level+"\t";
+    }
+    ~Character()= default;
+    
+    
 
 private:
 

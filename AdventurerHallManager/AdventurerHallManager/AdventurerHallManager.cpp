@@ -4,19 +4,11 @@
 
 #include "Character.h"
 
-int main(int argc, char* argv[])
+bool inMainMenu = true;
+string userChoice;
+int userInt;
+void MainMenu()
 {
-    bool inMainMenu = true;
-    string userChoice;
-    int userInt;
-    Character* Bob = new Character(10, 50, Human, Fighter, "Bob", 1);
-    Character Bob1 = Character(10, 50, Human, Fighter, "Bob1", 1);
-
-   // cout << Bob->name << endl;
-    //cout << Bob1.name << endl;
-
-    // Main Menu
-    
     std::cout << "Adventure Hall Manager\n1: Continue\n2: New Game\n3: Exit\n";
     while (inMainMenu)
     {
@@ -41,7 +33,16 @@ int main(int argc, char* argv[])
             
         }
     }
+}
+int main(int argc, char* argv[])
+{
+    
+    Character* Bob = new Character(10, 50, Human, Fighter, "Bob", 1);
+    Character Bob1 = Character(10, 50, Human, Fighter, "Bob1", 1);
+
+    Bob1.DisplayCharInfo();
     
     
+    MainMenu();
     return 0;
 }
