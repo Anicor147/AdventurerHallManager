@@ -1,5 +1,3 @@
-
-
 #include <string>
 
 #include "Character.h"
@@ -7,6 +5,7 @@
 bool inMainMenu = true;
 string userChoice;
 int userInt;
+
 void MainMenu()
 {
     std::cout << "Adventure Hall Manager\n1: Continue\n2: New Game\n3: Exit\n";
@@ -25,24 +24,28 @@ void MainMenu()
             {
                 throw(userChoice);
             }
-            
         }
         catch (...)
         {
             std::cout << "Please choose a valid option\n";
-            
         }
     }
 }
+
 int main(int argc, char* argv[])
 {
-    
-    Character* Bob = new Character(10, 50, Human, Fighter, "Bob", 1);
-    Character Bob1 = Character(10, 50, Human, Fighter, "Bob1", 1);
+    // Donne un seed au random seulement au debut du program
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-    Bob1.DisplayCharInfo();
     
-    
+    Character c1 = Character(10, 50, Human, Fighter, 1);
+    Character c2 = Character(10, 50, Elf, Fighter, 1);
+    Character c3 = Character(10, 50, HalfOrc, Fighter, 1);
+
+    c1.DisplayCharInfo();
+    c2.DisplayCharInfo();
+    c3.DisplayCharInfo();
+
     MainMenu();
     return 0;
 }

@@ -164,6 +164,16 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Hall.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="NamesFolder\DragonBornNames.txt" />
+    <Content Include="NamesFolder\DwarfNames.txt" />
+    <Content Include="NamesFolder\ElfNames.txt" />
+    <Content Include="NamesFolder\GnomeNames.txt" />
+    <Content Include="NamesFolder\HalflingNames.txt" />
+    <Content Include="NamesFolder\HalfOrcNames.txt" />
+    <Content Include="NamesFolder\HumanNames.txt" />
+    <Content Include="NamesFolder\TieflingNames.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -11,3 +11,17 @@ N
 AdventurerHallManager/Hall.cpp,2\7\27ec7b2c79ab79159e31a4fe0d568f94b97a6530
 S
 #AdventurerHallManager/Character.cpp,f\8\f8923c47511a0d5d8bac44e1bad71d9f02a43243
+O
+AdventurerHallManager/Names.txt,2\9\2986b33d23406912eb2a46be7e5cb4f5476d27e8
+^
+.AdventurerHallManager/NamesFolder/ElfNames.txt,a\2\a2413b11b7746decb5439789724f2ddf8ce832d6
+`
+0AdventurerHallManager/NamesFolder/DwarfNames.txt,b\1\b1f2618168f99540978f28ce8350eb960cc7fd70
+c
+3AdventurerHallManager/NamesFolder/HalflingNames.txt,d\5\d5f58b4570925b1b42dcefe60af3e354cdb1919a
+b
+2AdventurerHallManager/NamesFolder/HalfOrcNames.txt,5\e\5ea934f565ddba1ec029930715945fdc62dc5d5d
+e
+5AdventurerHallManager/NamesFolder/DragonBornNames.txt,8\3\83f0a328460d830173ad86f66001c8d35598f301
+`
+0AdventurerHallManager/NamesFolder/GnomeNames.txt,d\f\df3470a6d30e7288d50fadfab81fb340bc1a4de7
