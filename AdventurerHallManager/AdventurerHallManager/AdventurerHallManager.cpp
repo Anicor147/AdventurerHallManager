@@ -9,7 +9,7 @@ int userInt;
 
 void SecondMenu()
 {
-    std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n:5 View Party\n6: Exit";
+    std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit";
 }
 
 void MainMenu()
@@ -24,9 +24,21 @@ void MainMenu()
             if (userInt == 1 || userInt == 2 || userInt == 3)
             {
                 inMainMenu = false;
-                if (userInt == 3)
+                switch (userInt)
                 {
+                case 1:
+                    system("CLS");
+                    SecondMenu();
+                    inSecondMenu = true;
+                    break;
+                case 2:
+                    system("CLS");
+                    inSecondMenu = true;
+                    SecondMenu();
+                    break;
+                case 3:
                     exit(0);
+                    break;
                 }
                
             }
@@ -47,7 +59,7 @@ int main(int argc, char* argv[])
     // Donne un seed au random seulement au debut du program
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    
+  
     Character c1 = Character(10, 50, Human, Fighter, 1);
     Character c2 = Character(10, 50, Elf, Fighter, 1);
     Character c3 = Character(10, 50, HalfOrc, Fighter, 1);
