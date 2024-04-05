@@ -11,8 +11,6 @@ N
 AdventurerHallManager/Hall.cpp,2\7\27ec7b2c79ab79159e31a4fe0d568f94b97a6530
 S
 #AdventurerHallManager/Character.cpp,f\8\f8923c47511a0d5d8bac44e1bad71d9f02a43243
-O
-AdventurerHallManager/Names.txt,2\9\2986b33d23406912eb2a46be7e5cb4f5476d27e8
 ^
 .AdventurerHallManager/NamesFolder/ElfNames.txt,a\2\a2413b11b7746decb5439789724f2ddf8ce832d6
 `
@@ -25,3 +23,7 @@ e
 5AdventurerHallManager/NamesFolder/DragonBornNames.txt,8\3\83f0a328460d830173ad86f66001c8d35598f301
 `
 0AdventurerHallManager/NamesFolder/GnomeNames.txt,d\f\df3470a6d30e7288d50fadfab81fb340bc1a4de7
+S
+#AdventurerHallManager/Adventure.cpp,4\0\40a445f94bfcfdd379f9021d47c6300f204d5c7d
+Q
+!AdventurerHallManager/Adventure.h,7\7\7736c6c745c07b363e6294a56715b089c596ba34
