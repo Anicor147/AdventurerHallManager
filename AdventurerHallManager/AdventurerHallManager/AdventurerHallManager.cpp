@@ -3,8 +3,14 @@
 #include "Character.h"
 
 bool inMainMenu = true;
+bool inSecondMenu = false;
 string userChoice;
 int userInt;
+
+void SecondMenu()
+{
+    std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n:5 View Party\n6: Exit";
+}
 
 void MainMenu()
 {
@@ -18,7 +24,11 @@ void MainMenu()
             if (userInt == 1 || userInt == 2 || userInt == 3)
             {
                 inMainMenu = false;
-                // Code suite au choix de l'utilisateur
+                if (userInt == 3)
+                {
+                    exit(0);
+                }
+               
             }
             else
             {
