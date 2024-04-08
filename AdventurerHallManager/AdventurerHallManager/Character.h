@@ -79,7 +79,8 @@ public:
 
     void DisplayCharInfo()
     {
-        cout << "Name: " << name + "\t" << "Race: " << raceToString[race] +"\t"<< "Classe: " << classeToString[classe]+"\t"<< "Level: "<<to_string(level) + "\t";
+        cout << " ||" + name <<", "<<"Level: "<<to_string(level)<<" " + raceToString[race]<<" " + classeToString[classe] ;
+        //cout << "Name: " << name + "\t" << "Race: " << raceToString[race] +"\t"<< "Classe: " << classeToString[classe]+"\t"<< "Level: "<<to_string(level) + "\t";
     }
 
     ~Character() = default;

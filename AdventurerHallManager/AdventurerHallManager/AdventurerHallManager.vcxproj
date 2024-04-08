@@ -159,12 +159,14 @@
     <ClCompile Include="AdventurerHallManager.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Hall.cpp" />
+    <ClCompile Include="Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adventure.h" />
     <ClInclude Include="AdventurePoint.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Hall.h" />
+    <ClInclude Include="Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NamesFolder\DragonBornNames.txt" />

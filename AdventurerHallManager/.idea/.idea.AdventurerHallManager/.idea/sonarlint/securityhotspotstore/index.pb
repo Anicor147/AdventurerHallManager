@@ -27,3 +27,7 @@ S
 #AdventurerHallManager/Adventure.cpp,4\0\40a445f94bfcfdd379f9021d47c6300f204d5c7d
 Q
 !AdventurerHallManager/Adventure.h,7\7\7736c6c745c07b363e6294a56715b089c596ba34
+`
+0AdventurerHallManager/NamesFolder/HumanNames.txt,5\0\50c4c8427093300742d582056af0bc4e6dbab7df
+c
+3AdventurerHallManager/NamesFolder/TieflingNames.txt,4\0\405bff40341a3b20cb18d71c123fa1d26dd61b2d

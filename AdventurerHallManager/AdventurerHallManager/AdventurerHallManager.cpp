@@ -10,6 +10,26 @@ int userInt;
 void SecondMenu()
 {
     std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit";
+    while (inSecondMenu)
+    {
+        try
+        {
+            cin >> userChoice;
+            userInt = stoi(userChoice);
+            if (userInt == 1 || userInt == 2 || userInt == 3 || userInt == 4 || userInt == 5|| userInt == 6)
+            {
+                
+            }
+            else
+            {
+                throw(userChoice);
+            }
+        }
+        catch (...)
+        {
+            std::cout << "Please choose a valid option\n";
+        }
+    }
 }
 
 void MainMenu()
