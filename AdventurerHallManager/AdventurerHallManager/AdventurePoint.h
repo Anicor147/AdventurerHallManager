@@ -74,7 +74,10 @@ public:
         chosenEncounter = Encounter();
     }
 
-    ~AdventurePoint() = default;
+    ~AdventurePoint()
+    {
+        delete possibleEncounters;
+    } ;
 
     AdventurePoint(const string& name, const string& description)
         : name(name),
@@ -99,7 +102,6 @@ public:
 
     Encounter ChooseEncounter()
     {
-        srand((unsigned) time(NULL));
         int index = rand() %  3;
         return possibleEncounters[index];
     }

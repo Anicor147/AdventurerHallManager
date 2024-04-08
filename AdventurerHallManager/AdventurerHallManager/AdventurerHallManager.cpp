@@ -1,5 +1,6 @@
 #include <string>
 
+#include "Adventure.h"
 #include "Character.h"
 
 bool inMainMenu = true;
@@ -72,6 +73,13 @@ void MainMenu()
             std::cout << "Please choose a valid option\n";
         }
     }
+}
+
+Adventure CreateAdventure(string name)
+{
+    Adventure newAdventure = Adventure(name);
+    //set root node
+    newAdventure.AdventureTree->Root = new TreeNode<AdventurePoint>(AdventurePoint());
 }
 
 int main(int argc, char* argv[])
