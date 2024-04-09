@@ -2,11 +2,23 @@
 
 #include "Adventure.h"
 #include "Character.h"
+#include "Shop.h"
 
 bool inMainMenu = true;
 bool inSecondMenu = false;
 string userChoice;
 int userInt;
+
+void CreateShop()
+{
+    auto firstItem = ShopItem("A warm fire hearth","Fire hearth", 15);
+    stack<ShopItem> shop_Item;
+    shop_Item.push(firstItem);
+    
+    Shop theShop = Shop(shop_Item);
+
+    theShop.DisplayTopItem();
+}
 
 void SecondMenu()
 {
@@ -75,13 +87,13 @@ void MainMenu()
     }
 }
 
-Adventure CreateAdventure(string name)
+/*Adventure CreateAdventure(string name)
 {
     Adventure newAdventure = Adventure(name);
     //set root node
     newAdventure.AdventureTree->Root = new TreeNode<AdventurePoint>(AdventurePoint());
 }
-
+*/
 int main(int argc, char* argv[])
 {
     // Donne un seed au random seulement au debut du program
@@ -96,6 +108,7 @@ int main(int argc, char* argv[])
     c2.DisplayCharInfo();
     c3.DisplayCharInfo();
 
+    CreateShop();
     MainMenu();
     return 0;
 }
