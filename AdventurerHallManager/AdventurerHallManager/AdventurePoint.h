@@ -8,6 +8,8 @@ struct Encounter
 public:
     string name;
     bool isBattle;
+    int goldValue;
+    int healValue;
     int GetDamage()
     {
         return dmg;
@@ -39,12 +41,14 @@ protected:
 public:
     Encounter() {  }
     ~Encounter() = default;
-    Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp)
+    Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp, int gold, int heal)
         : name(name),
           isBattle(is_battle),
           description(description),
           dmg(dmg),
-          hp(hp)
+          hp(hp),
+          goldValue(gold),
+          healValue(heal)
     {
     }
 };
