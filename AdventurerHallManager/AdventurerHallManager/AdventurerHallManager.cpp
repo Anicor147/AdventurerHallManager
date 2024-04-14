@@ -30,8 +30,8 @@ void DisplayPartyInfo()
 
 void SecondMenu()
 {
-    std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit";
-    while (inSecondMenu)
+    std::cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit\n";
+    do
     {
         try
         {
@@ -58,20 +58,22 @@ void SecondMenu()
                 break;
             default:
                 throw(userChoice);
-                
+                break;
             }
         }
         catch (...)
         {
             std::cout << "Please choose a valid option\n";
+            system("CLS");
+            SecondMenu();
         }
-    }
+    }while (inSecondMenu);
 }
 
 void MainMenu()
 {
     std::cout << "Adventure Hall Manager\n1: Continue\n2: New Game\n3: Exit\n";
-    while (inMainMenu)
+    do
     {
         try
         {
@@ -103,18 +105,16 @@ void MainMenu()
         catch (...)
         {
             std::cout << "Please choose a valid option\n";
+            system("CLS");
+            MainMenu();
         }
-    }
+    }while (inMainMenu);
 }
 
 int main(int argc, char* argv[])
 {
     // Donne un seed au random seulement au debut du program
     srand(static_cast<unsigned int>(time(nullptr)));
-
-    c1.DisplayCharInfo();
-    c2.DisplayCharInfo();
-    c3.DisplayCharInfo();
    
     MainMenu();
     return 0;
