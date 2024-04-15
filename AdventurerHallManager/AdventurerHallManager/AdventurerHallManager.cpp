@@ -15,7 +15,7 @@ Character c3 = Character(10, 50, HalfOrc, Wizard, 1);
 Character c4 = Character(10, 50, Halfling, Cleric, 1);
 // Array Pour le Party
 
-vector<Character> theParty = {c1,c2,c3,c4};
+vector<Character> theParty = {c1, c2, c3, c4};
 
 //Queue Pour Recruit
 queue<Character> recruit_queue_rogue;
@@ -25,50 +25,49 @@ queue<Character> recruit_queue_figther;
 
 void CreateShop()
 {
-    auto firstItem = ShopItem("A warm fire hearth","Fire hearth", 30);
+    auto firstItem = ShopItem("A warm fire hearth", "Fire hearth", 30);
     stack<ShopItem> shop_Item;
     shop_Item.push(firstItem);
     Shop theShop = Shop(shop_Item);
 }
+
 void DisplayPartyInfo()
 {
-    for(Character x : theParty)
+    for (Character x : theParty)
         x.DisplayCharInfo();
 }
 
-void RecruitPartyMember(vector<Character> &characters)
+
+void RecruitPartyMember(vector<Character>& characters)
 {
-    auto indexOfChar =0;
     cout << "Adventure Hall Manager\n1: Rogue\n2: Cleric\n3: Fighter\n4: Wizard\n5: Exit\n";
+    Character r = recruit_queue_rogue.front();
+    Character c = recruit_queue_cleric.front();
+    Character f = recruit_queue_figther.front();
+    Character w = recruit_queue_wizard.front();
     try
     {
-        for (int x =0; x < characters.capacity();x++)
-        {
-            if (characters[x] == 0)
-            {
-                indexOfChar =x;
-            }
-        }
-        cout << indexOfChar;
         cin >> userChoice;
         userInt = stoi(userChoice);
         switch (userInt)
         {
         case 1:
-           
-            break;
+            characters.emplace_back(r);
+            recruit_queue_rogue.pop();
+            return;
+
         case 2:
-            
-            break;
+            characters.emplace_back(c);
+            recruit_queue_cleric.pop();
+            return;
         case 3:
-            
-            break;
+            characters.emplace_back(f);
+            recruit_queue_figther.pop();
+            return;
         case 4:
-            
-            break;
-        case 5:
-            exit(0);
-            break;
+            characters.emplace_back(w);
+            recruit_queue_wizard.pop();
+            return;
         default:
             throw(userChoice);
             break;
@@ -84,8 +83,8 @@ void RecruitPartyMember(vector<Character> &characters)
 
 void SecondMenu()
 {
-   inSecondMenu = true;
-   
+    inSecondMenu = true;
+
     cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit\n";
     do
     {
@@ -99,7 +98,7 @@ void SecondMenu()
                 // Code pour Adventure
                 break;
             case 2:
-               CreateShop();
+                CreateShop();
                 break;
             case 3:
                 if (theParty.size() < 4)
@@ -131,8 +130,10 @@ void SecondMenu()
             system("CLS");
             SecondMenu();
         }
-    }while (inSecondMenu);
+    }
+    while (inSecondMenu);
 }
+
 
 void MainMenu()
 {
@@ -143,28 +144,27 @@ void MainMenu()
         {
             cin >> userChoice;
             userInt = stoi(userChoice);
-           
-            
-                inMainMenu = false;
-                switch (userInt)
-                {
-                case 1:
-                    system("CLS");
-                    SecondMenu();
-                    inSecondMenu = true;
-                    break;
-                case 2:
-                    system("CLS");
-                    inSecondMenu = true;
-                    SecondMenu();
-                    break;
-                case 3:
-                    exit(0);
-                    break;
-                default:
-                    throw(userChoice);
-                }
-            
+
+
+            inMainMenu = false;
+            switch (userInt)
+            {
+            case 1:
+                system("CLS");
+                SecondMenu();
+                inSecondMenu = true;
+                break;
+            case 2:
+                system("CLS");
+                inSecondMenu = true;
+                SecondMenu();
+                break;
+            case 3:
+                exit(0);
+                break;
+            default:
+                throw(userChoice);
+            }
         }
         catch (...)
         {
@@ -172,31 +172,32 @@ void MainMenu()
             system("CLS");
             MainMenu();
         }
-    }while (inMainMenu);
+    }
+    while (inMainMenu);
 }
 
 int main(int argc, char* argv[])
 {
     for (int i = 0; i < 20; i++)
     {
-        Character c = Character(12,45,Elf,Rogue,1);
+        Character c = Character(12, 45, Elf, Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(10,35,Elf,Cleric,1);
+        Character v = Character(10, 35, Elf, Cleric, 1);
         recruit_queue_cleric.push(v);
-        Character x = Character(15,50,Elf,Fighter,1);
+        Character x = Character(15, 50, Elf, Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(15,30,Elf,Wizard,1);
+        Character y = Character(15, 30, Elf, Wizard, 1);
         recruit_queue_wizard.push(y);
     }
     // Donne un seed au random seulement au debut du program
     theParty.erase(theParty.begin());
+    theParty[0].DisplayCharInfo();
+
     srand(static_cast<unsigned int>(time(nullptr)));
-   
+
     MainMenu();
     return 0;
 }
-        
-    
 
 
 /*Adventure CreateAdventure(string name)
@@ -316,4 +317,3 @@ int main(int argc, char* argv[])
         Encounter()));
     
 }*/
-
