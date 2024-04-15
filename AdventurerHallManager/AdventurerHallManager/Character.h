@@ -79,7 +79,7 @@ public:
 
     void DisplayCharInfo()
     {
-        cout << " ||" + name <<", "<<"Level: "<<to_string(level)<<" " + raceToString[race]<<" " + classeToString[classe] ;
+        cout << " ||" + name <<", "<<"Level: "<<to_string(level)<<" " + raceToString[race]<<" " + classeToString[classe] << "\n" ;
         //cout << "Name: " << name + "\t" << "Race: " << raceToString[race] +"\t"<< "Classe: " << classeToString[classe]+"\t"<< "Level: "<<to_string(level) + "\t";
     }
 
