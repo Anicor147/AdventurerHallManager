@@ -109,4 +109,9 @@ public:
         int index = rand() %  3;
         return possibleEncounters[index];
     }
+
+    Encounter SetUniqueEncounter(Encounter uniqueEncounter)
+    {
+        chosenEncounter = uniqueEncounter;
+    }
 };

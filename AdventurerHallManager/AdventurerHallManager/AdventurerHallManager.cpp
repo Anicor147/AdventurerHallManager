@@ -200,7 +200,7 @@ int main(int argc, char* argv[])
 }
 
 
-/*Adventure CreateAdventure(string name)
+Adventure CreateAdventure(string name)
 {
     Adventure newAdventure = Adventure(name);
     //set root node --> On the Road
@@ -234,17 +234,15 @@ int main(int argc, char* argv[])
     //Goblin Camp
     newAdventure.AdventureTree->Root->left->left->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Goblin Camp",
-        "Huts adorned with animal bones, a big campfire in the center, and so, so many goblins roaming around.",
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0),
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0),
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0)));
+        "Huts adorned with animal bones, a big campfire in the center, and so, so many goblins roaming around."));
+    newAdventure.AdventureTree->Root->left->left->left->left->data.SetUniqueEncounter(
+        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0));
     //Druid Grove
     newAdventure.AdventureTree->Root->left->left->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Druid Grove",
-        "The plants and animals around here seem to try to drive your party away. The druids do not tolerate intruders in their secret grove.",
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0),
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0),
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0)));
+        "The plants and animals around here seem to try to drive your party away. The druids do not tolerate intruders in their secret grove."));
+    newAdventure.AdventureTree->Root->left->left->left->right->data.SetUniqueEncounter(
+        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0));
     //Swamp
     newAdventure.AdventureTree->Root->left->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Swamps",
@@ -255,17 +253,15 @@ int main(int argc, char* argv[])
     //Troll Cave
     newAdventure.AdventureTree->Root->left->left->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Troll Cave",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        "A damp cave so dark torchlight seems to wither away as the party enters. A stench hits them with the full force of a hundred rotting carcasses, so foul it takes all the strength in their bodies to avoid retching and falling unconcious. And then a growl comes from deeper in the lair. The troll has awakened!"));
+    newAdventure.AdventureTree->Root->left->left->right->left->data.SetUniqueEncounter(
+        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0));
     //Lizardmen Temple
     newAdventure.AdventureTree->Root->left->left->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Lizardmen Temple",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        "This part of the swamps is filled with luxurious vegetation, almost jungle-like. Between the trees, stone totems with angry faces and bone idols representing a serpent god can be seen. Then, a temple, shaped like a pyramid, adorned in gold and precious stones. It is guarded by many a warrior, curled warrior figures with scaly skin, lizard heads and tails, and spears and axes. At the top of the pyramid, a priest, wielding a jeweled mace and a ritual dagger, is about to sacrifice some poor victim while chanting to its serpent god!"));
+    newAdventure.AdventureTree->Root->left->left->right->right->data.SetUniqueEncounter(
+        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0));
     //River Road
     newAdventure.AdventureTree->Root->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "River Road",
@@ -283,17 +279,15 @@ int main(int argc, char* argv[])
     //Pirate Hideout
     newAdventure.AdventureTree->Root->left->right->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Pirate Hideout",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        ""));
+    newAdventure.AdventureTree->Root->left->right->left->left->data.SetUniqueEncounter(
+        Encounter("", true, "", 40, 100, 50, 0));
     //Fishmen Lagoon
     newAdventure.AdventureTree->Root->left->right->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Fishmen Lagoon",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        ""));
+    newAdventure.AdventureTree->Root->left->right->left->right->data.SetUniqueEncounter(
+        Encounter("", true, "", 40, 100, 50, 0));
     //Mountain
     newAdventure.AdventureTree->Root->left->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Mountain",
@@ -304,16 +298,14 @@ int main(int argc, char* argv[])
     //Giant's Summit
     newAdventure.AdventureTree->Root->left->right->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Giant's Summit",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        ""));
+    newAdventure.AdventureTree->Root->left->right->right->left->data.SetUniqueEncounter(
+        Encounter("", true, "", 40, 100, 50, 0));
     //Harpy's Nest
     newAdventure.AdventureTree->Root->left->right->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Harpy's Nest",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        ""));
+    newAdventure.AdventureTree->Root->left->right->right->right->data.SetUniqueEncounter(
+        Encounter("", true, "", 40, 100, 50, 0));
     
-}*/
+}
