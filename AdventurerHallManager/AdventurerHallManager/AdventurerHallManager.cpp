@@ -23,14 +23,18 @@ queue<Character> recruit_queue_cleric;
 queue<Character> recruit_queue_wizard;
 queue<Character> recruit_queue_figther;
 
-void CreateShop()
-{
-    auto firstItem = ShopItem("A warm fire hearth", "Fire hearth", 30);
-    stack<ShopItem> shop_Item;
-    shop_Item.push(firstItem);
-    Shop theShop = Shop(shop_Item);
-}
+// Shop
 
+Shop theShop = Shop(theShop.shopItem);
+
+void DisplayShop()
+{
+    theShop.DisplayTopItem();
+    cout << "\nDo you wish to buy the item?\n 1: Buy \n 2: Return to previous Menu\n";
+    cin >> userChoice;
+    userInt = stoi(userChoice);
+   
+}
 void DisplayPartyInfo()
 {
     for (Character x : theParty)
@@ -98,7 +102,8 @@ void SecondMenu()
                 // Code pour Adventure
                 break;
             case 2:
-                CreateShop();
+                DisplayShop();
+                inSecondMenu = false;
                 break;
             case 3:
                 if (theParty.size() < 4)
@@ -192,6 +197,17 @@ int main(int argc, char* argv[])
     // Donne un seed au random seulement au debut du program
     theParty.erase(theParty.begin());
     theParty[0].DisplayCharInfo();
+   // Shop creation
+    auto firstItem = ShopItem("A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.", "Stone Fireplace with Hearth", 30);
+    auto secondItem = ShopItem("Sturdy wooden tables and benches, where your party can gather to dine and socialize.","Tables and Benches",50);
+    auto thirdItem = ShopItem(" Elaborate chandeliers hanging from the ceiling, adorned with magical orbs to provide soft, warm lighting throughout the hall.","Magical Chandeliers", 100);
+    auto fourthItem = ShopItem("An old and well construct wooden barrel. It seems like we cant empty it no matters of much we drink.","Bottomless wine barrel", 150);
+    
+    
+    theShop.shopItem.push(fourthItem);
+    theShop.shopItem.push(thirdItem);
+    theShop.shopItem.push(secondItem);
+    theShop.shopItem.push(firstItem);
 
     srand(static_cast<unsigned int>(time(nullptr)));
 
@@ -307,5 +323,6 @@ Adventure CreateAdventure(string name)
         ""));
     newAdventure.AdventureTree->Root->left->right->right->right->data.SetUniqueEncounter(
         Encounter("", true, "", 40, 100, 50, 0));
-    
+
+    return newAdventure;
 }

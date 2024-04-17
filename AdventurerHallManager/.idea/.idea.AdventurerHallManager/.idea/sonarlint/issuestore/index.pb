@@ -37,3 +37,7 @@ L
 AdventurerHallManager/Shop.h,2\9\298774b2e9ae142a20375d530e61234e45adba6c
 X
 (AdventurerHallManager/AdventurePoint.cpp,b\7\b75c35aa3307d1377c31a869775439e0f0fb3c1c
+P
+ AdventurerHallManager/ShopItem.h,b\1\b1adedfee20c3544058e301a03e7c64c81d1ce7e
+R
+"AdventurerHallManager/ShopItem.cpp,c\a\ca281a1431f6a358dc71cd2429c580ddf76b3d58

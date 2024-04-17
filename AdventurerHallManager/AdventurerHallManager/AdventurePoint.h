@@ -113,5 +113,6 @@ public:
     Encounter SetUniqueEncounter(Encounter uniqueEncounter)
     {
         chosenEncounter = uniqueEncounter;
+        return chosenEncounter;
     }
 };

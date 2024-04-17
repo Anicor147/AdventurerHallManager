@@ -6,7 +6,7 @@
 class Shop
 {
 public:
-    explicit Shop(const std::stack<ShopItem>& shop_item)
+     Shop(const std::stack<ShopItem>& shop_item)
         : shopItem(shop_item)
     {
     }

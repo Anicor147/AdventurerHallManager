@@ -16,7 +16,7 @@ public:
     }
     void DisplayItemInfo()
     {
-        std::cout << name + " || "<< description + " || "<< std::to_string(price);
+        std::cout << name + " || "<< description + " || "<< std::to_string(price) + " Gold";
     }
     
     //~ShopItem();
