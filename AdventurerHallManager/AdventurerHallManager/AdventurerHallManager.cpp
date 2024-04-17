@@ -239,7 +239,7 @@ Adventure CreateAdventure(string name)
         "The Rocky Road is dotted with crags, caves and small cliffs. Lots of good spots for ambushes.",
         Encounter("Wandering Priest", false, "A well equipped priest is traveling alone. He offers the blessings of his deity and heals some of the party's wounds as a gesture of good faith.", 0, 0, 0, 10),
         Encounter("Wolf Pack", true, "A pack of feral wolves appear between the rocks, led by a huge Dire Wolf with dagger-like fangs and a coat of pitch black fur.", 20, 40, 20, 0),
-        Encounter("Spectral Host", true, "A whole army of ghostly figures clad in torn mail and holding battered weapons seems to appear out of thin air. With a cold and quiet stare, they move menacingly towards the party.", 15, 50, 20, 0)));
+        Encounter("Spectral Host", true, "The party walks past a long forgotten battlefield. Suddenly a whole army of ghostly figures clad in torn mail and holding battered weapons seems to appear out of thin air. With a cold and quiet stare, they move menacingly towards the party.", 15, 50, 20, 0)));
     //Forest
     newAdventure.AdventureTree->Root->left->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Forest",
@@ -281,36 +281,36 @@ Adventure CreateAdventure(string name)
     //River Road
     newAdventure.AdventureTree->Root->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "River Road",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        "A beautiful river streches on the side of this road, twisting and winding. The sound of the rapids and the gentle winds make for a pleasant walk.",
+        Encounter("Death from Below", true, "The ground shakes, and all of a sudden two massive insect-like creatures burst out of burrowed holes, shrieking and grinding their huge mandibles. One spits acid while the other crawls at an impressive speed towards the party.", 20, 40, 20, 0),
+        Encounter("Just in time", false, "The party approches a group of travellers gathered in a defensive circle on a bridge. a group of ogres are harassing them with rocks. As the party comes in to attack, the ogres flee in a chaotic retreat, yelling angrily at each other. The rescued travelers offer food, medecine and gold as a sign of grattitude.", 0, 0, 10, 10),
+        Encounter("Centaur Outriders", true, "A group of Centaurs come galloping towards the party. They claim that this is their hunting grounds and trespass shall not be allowed. After a tense attempt at negotiations, it becomes clear they will not let it go and start circling the party. Suddenly one of them looses an arrow. It's a battle!", 15, 50, 20, 0)));
     //Coast
     newAdventure.AdventureTree->Root->left->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Coast",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        "The sea stretches out before the party's eyes, waves crashing upon the rocky shores. This coast is known for its monstrous inhabitants, pirates and treasures. Fortune may hide there for those brave enough to reach out for it.",
+        Encounter("Wyverns", true, "Nesting in cracks in the shoreline cliffs, those nasty flying beasts have poisoned stingers at the tip of their tails. Two of them are patrolling the skies over the road. The party tries to hide, but to no avail. The monsters dive in to attack.", 25, 50, 25, 0),
+        Encounter("Mercenary Battalion", true, "These poorly armed mercenaries come from the neighbouring province. Whenever they are without a contract, they roam the country, showing a red banner, plundering and raiding wherever they find riches. Your party will not stand for such dishonorable conduct! They engage in bloody business with the mercenaries.", 10, 80, 25, 0),
+        Encounter("Abandonned Wizard's Tower", true, "This strange tower seems to move about, appearing in random places. It is a well known mystery in these parts. As the party enters the worn out building looking for valuables, stone golems step out of alcoves and attack.", 15, 70, 25, 0)));
     //Pirate Hideout
     newAdventure.AdventureTree->Root->left->right->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Pirate Hideout",
-        ""));
+        "This cove is well known to be a pirate safe haven. After traversing some well hidden paths between cliffs and trees, the party lay there eyes on a plethora of vessels, from small boats to large frigates, all sporting different versions of the skull and bones flag."));
     newAdventure.AdventureTree->Root->left->right->left->left->data.SetUniqueEncounter(
-        Encounter("", true, "", 40, 100, 50, 0));
+        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0));
     //Fishmen Lagoon
     newAdventure.AdventureTree->Root->left->right->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Fishmen Lagoon",
-        ""));
+        "This reef is dotted with beautiful coral formations and rocky formations. With a closer look though, it is possible to see bone statues, fishing boat carcasses and strange, wet, slimy creatures moving about, yapping at each other in their gurgly language."));
     newAdventure.AdventureTree->Root->left->right->left->right->data.SetUniqueEncounter(
-        Encounter("", true, "", 40, 100, 50, 0));
+        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0));
     //Mountain
     newAdventure.AdventureTree->Root->left->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Mountain",
-        "",
-        Encounter(),
-        Encounter(),
-        Encounter()));
+        "This road is hard to travel. Steep climbs, rock slides, cold winds... nature itself seems to be telling your party a message: You are not welcome here.",
+        Encounter("Savage Dwarves", true, "The party passes by a dirty mine, with recent bodies littering the floor of the entrance. A sentry rings a bell. And they come out, screaming, axes and hammers and picks whirling above their heads. The crazy dwarves of the mountains fight with no care for their own life!", 15, 70, 25, 0),
+        Encounter("Bear Cave", true, "The party stops to rest in a small cave by the road. Tired and cold, they enjoy a warm broth. But a low growl interrupts their well deserved meal. The growl grows into a full blown rageful roar, as a huge cave bear walks in what the party now realizes to be the den of massive animal.", 25, 50, 25, 0),
+        Encounter("Windswept Tower", false, "This tower is known amongst travelers as a place of warmth and respite. The party enjoys a well deserved meal and warm bed for the night. The owner of the tavern helps with injuries while listening to the stories of yout party's adventures.", 0, 0, 0, 15)));
     //Giant's Summit
     newAdventure.AdventureTree->Root->left->right->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Giant's Summit",

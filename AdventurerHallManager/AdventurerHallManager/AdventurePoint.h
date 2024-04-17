@@ -110,9 +110,8 @@ public:
         return possibleEncounters[index];
     }
 
-    Encounter SetUniqueEncounter(Encounter uniqueEncounter)
+    void SetUniqueEncounter(Encounter uniqueEncounter)
     {
         chosenEncounter = uniqueEncounter;
-        return chosenEncounter;
     }
 };
