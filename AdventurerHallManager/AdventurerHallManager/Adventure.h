@@ -32,14 +32,14 @@ public:
     BinaryTree(TreeNode<AdventurePoint>* root)
     {
         Root = root;
-    };
+    }
     ~BinaryTree()
     {
         Clear(Root);
         Root = nullptr;
-    };
+    }
 
-    void Clear(TreeNode<AdventurePoint>* node)
+    void Clear(const TreeNode<AdventurePoint>* node)
     {
         if (node == NULL)
         {
@@ -56,19 +56,22 @@ class Adventure
 public:
     string name;
     BinaryTree* AdventureTree;
+    TreeNode<AdventurePoint>* RootNode;
     TreeNode<AdventurePoint>* CurrentNode;
 
-    explicit Adventure(const string& name, TreeNode<AdventurePoint>* root)
+    Adventure(const string& name, TreeNode<AdventurePoint>* root)
         : name(name)
     {
-        AdventureTree = new BinaryTree(root);
-        CurrentNode = root;
+        
+        RootNode = root;
+        AdventureTree = new BinaryTree(RootNode);
+        CurrentNode = AdventureTree->Root;
     }
 
-    ~Adventure()
-    {
-        //delete CurrentNode;
-        delete AdventureTree;
-    }
+    // ~Adventure()
+    // {
+    //     //delete CurrentNode;
+    //     delete AdventureTree;
+    // }
 };
 

@@ -74,12 +74,13 @@ public:
     {
         return description;
     }
+    Encounter chosenEncounter;
     
 private:
     string name;
     string description;
     Encounter* possibleEncounters;
-    Encounter chosenEncounter;
+    
 protected:
 public:
     AdventurePoint()
@@ -88,19 +89,6 @@ public:
         chosenEncounter = Encounter();
     }
 
-    ~AdventurePoint()
-    {
-        if(possibleEncounters) delete[] possibleEncounters;
-    } ;
-
-    // AdventurePoint(const string& name, const string& description)
-    //     : name(name),
-    //       description(description)
-    // {
-    //     possibleEncounters = new Encounter[]{Encounter(), Encounter(), Encounter()};
-    //     chosenEncounter = Encounter();
-    // }
-
     AdventurePoint(const string& name, const string& description, Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
         : name(name),
           description(description)
@@ -108,11 +96,6 @@ public:
         possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
         chosenEncounter = ChooseEncounter();
     }
-
-    // void SetPossibleEncounters(Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
-    // {
-    //     possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
-    // }
 
     Encounter ChooseEncounter()
     {

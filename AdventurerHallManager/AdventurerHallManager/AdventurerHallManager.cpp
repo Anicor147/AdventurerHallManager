@@ -151,7 +151,31 @@ Adventure CreateAdventure(string name)
 
 void AdventureTraversal(Adventure* adventure)
 {
-    cout << adventure->name;
+    cout << adventure->CurrentNode->data.GetName() << endl << adventure->CurrentNode->data.GetDescription() << endl << endl;
+    cout << adventure->CurrentNode->data.chosenEncounter.name << endl << adventure->CurrentNode->data.chosenEncounter.GetDescription() << endl << endl;
+    if (adventure->CurrentNode->data.chosenEncounter.isBattle)
+    {
+        //battle code
+    }
+    else
+    {
+        if (adventure->CurrentNode->data.chosenEncounter.healValue > 0)
+        {
+            cout << "Your party is healed by " << adventure->CurrentNode->data.chosenEncounter.healValue << "!" << endl;
+            // code pour healer
+        }
+        if (adventure->CurrentNode->data.chosenEncounter.goldValue > 0)
+        {
+            cout << "Your party receives " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
+            //code pour gagner du gold
+        }
+        if (adventure->CurrentNode->data.chosenEncounter.goldValue < 0)
+        {
+            cout << "Your party has lost " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
+            //code pour perdre du gold
+        }
+    }
+    
 }
 
 void DisplayShop()
