@@ -39,8 +39,17 @@ protected:
     
 
 public:
-    Encounter() {  }
-    ~Encounter() = default;
+    Encounter():
+          name(nullptr),
+          isBattle(false),
+          description(nullptr),
+          dmg(0),
+          hp(0),
+          goldValue(0),
+          healValue(0)
+    {}
+    
+    ~Encounter() {}
     Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp, int gold, int heal)
         : name(name),
           isBattle(is_battle),
@@ -80,7 +89,7 @@ public:
 
     ~AdventurePoint()
     {
-        delete possibleEncounters;
+        delete[] possibleEncounters;
     } ;
 
     AdventurePoint(const string& name, const string& description)
@@ -106,12 +115,8 @@ public:
 
     Encounter ChooseEncounter()
     {
+        srand(static_cast<unsigned int>(time(nullptr)));
         int index = rand() %  3;
         return possibleEncounters[index];
-    }
-
-    void SetUniqueEncounter(Encounter uniqueEncounter)
-    {
-        chosenEncounter = uniqueEncounter;
     }
 };
