@@ -209,7 +209,6 @@ int main(int argc, char* argv[])
     theShop.shopItem.push(secondItem);
     theShop.shopItem.push(firstItem);
 
-    srand(static_cast<unsigned int>(time(nullptr)));
 
     MainMenu();
     return 0;

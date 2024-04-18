@@ -37,21 +37,34 @@ public:
     int level;
     Race race;
     Classe classe;
-    map<Race , string> raceFileMap;
-    map<Race, string> raceToString = {{ Human, "Human" },
-            { Elf, "Elf" },
-            { Dwarf, "Dwarf" },
-            { Tiefling, "Tiefling" },
-            { Halfling, "Halfling" },
-            { HalfOrc, "HalfOrc" },
-            { Dragonborn, "Dragonborn" },
-            { Gnome, "Gnome" },
-            { HalfElf, "HalfElf" }};
-    map<Classe, string> classeToString = {{Fighter,"Fighter"},{Cleric,"Cleric"},{Rogue,"Rogue"},{Wizard,"Wizard"}};
+    //Dictionnaire qui contient le chemins pour chaque race
+    map<Race, string> raceFileMap = {
+        {Human, "NamesFolder/HumanNames.txt"},
+        {Elf, "NamesFolder/ElfNames.txt"},
+        {Dwarf, "NamesFolder/DwarfNames.txt"},
+        {Tiefling, "NamesFolder/Tiefling.txt"},
+        {Halfling, "NamesFolder/HalflingNames.txt"},
+        {HalfOrc, "NamesFolder/HalfOrcNames.txt"},
+        {Dragonborn, "NamesFolder/DragonBornNames.txt"},
+        {Gnome, "NamesFolder/GnomeNames.txt"},
+        {HalfElf, "NamesFolder/ElfNames.txt"}
+    };
+    map<Race, string> raceToString = {
+        {Human, "Human"},
+        {Elf, "Elf"},
+        {Dwarf, "Dwarf"},
+        {Tiefling, "Tiefling"},
+        {Halfling, "Halfling"},
+        {HalfOrc, "HalfOrc"},
+        {Dragonborn, "Dragonborn"},
+        {Gnome, "Gnome"},
+        {HalfElf, "HalfElf"}
+    };
+    map<Classe, string> classeToString = {
+        {Fighter, "Fighter"}, {Cleric, "Cleric"}, {Rogue, "Rogue"}, {Wizard, "Wizard"}
+    };
 
-   
-    
-    
+
     Character(int _damage, int _hp, Race _race, Classe _classe, int _level)
         : damage(_damage),
           hp(_hp),
@@ -59,27 +72,13 @@ public:
           classe(_classe),
           level(_level)
     {
-        //Dictionnaire qui contient le chemins pour chaque race
-        raceFileMap = {
-            { Human, "NamesFolder/HumanNames.txt" },
-            { Elf, "NamesFolder/ElfNames.txt" },
-            { Dwarf, "NamesFolder/DwarfNames.txt" },
-            { Tiefling, "NamesFolder/Tiefling.txt" },
-            { Halfling, "NamesFolder/HalflingNames.txt" },
-            { HalfOrc, "NamesFolder/HalfOrcNames.txt" },
-            { Dragonborn, "NamesFolder/DragonBornNames.txt" },
-            { Gnome, "NamesFolder/GnomeNames.txt" },
-            { HalfElf, "NamesFolder/ElfNames.txt" }
-        };
-
         name = GetNameFromFile(raceFileMap[race]);
-
-       
     }
 
     void DisplayCharInfo()
     {
-        cout << " ||" + name <<", "<<"Level: "<<to_string(level)<<" " + raceToString[race]<<" " + classeToString[classe] << "\n" ;
+        cout << " ||" + name << ", " << "Level: " << to_string(level) << " " + raceToString[race] << " " +
+            classeToString[classe] << "\n";
         //cout << "Name: " << name + "\t" << "Race: " << raceToString[race] +"\t"<< "Classe: " << classeToString[classe]+"\t"<< "Level: "<<to_string(level) + "\t";
     }
 
@@ -89,6 +88,7 @@ public:
     {
         ifstream file(filename);
         vector<string> names;
+        srand(static_cast<unsigned int>(time(nullptr)));
 
         if (file.is_open())
         {
@@ -110,5 +110,4 @@ public:
     }
 
 private:
-  
 };
