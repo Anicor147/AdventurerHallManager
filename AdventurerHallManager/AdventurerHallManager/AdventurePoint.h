@@ -40,16 +40,17 @@ protected:
 
 public:
     Encounter():
-          name(nullptr),
           isBattle(false),
-          description(nullptr),
           dmg(0),
           hp(0),
           goldValue(0),
           healValue(0)
-    {}
+    {
+        name = "";
+        description = "";
+    }
     
-    ~Encounter() {}
+    //~Encounter() {}
     Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp, int gold, int heal)
         : name(name),
           isBattle(is_battle),
@@ -89,16 +90,16 @@ public:
 
     ~AdventurePoint()
     {
-        delete[] possibleEncounters;
+        if(possibleEncounters) delete[] possibleEncounters;
     } ;
 
-    AdventurePoint(const string& name, const string& description)
-        : name(name),
-          description(description)
-    {
-        possibleEncounters = new Encounter[]{Encounter(), Encounter(), Encounter()};
-        chosenEncounter = Encounter();
-    }
+    // AdventurePoint(const string& name, const string& description)
+    //     : name(name),
+    //       description(description)
+    // {
+    //     possibleEncounters = new Encounter[]{Encounter(), Encounter(), Encounter()};
+    //     chosenEncounter = Encounter();
+    // }
 
     AdventurePoint(const string& name, const string& description, Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
         : name(name),
@@ -108,10 +109,10 @@ public:
         chosenEncounter = ChooseEncounter();
     }
 
-    void SetPossibleEncounters(Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
-    {
-        possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
-    }
+    // void SetPossibleEncounters(Encounter encounter_1, Encounter encounter_2, Encounter encounter_3)
+    // {
+    //     possibleEncounters = new Encounter[]{encounter_1, encounter_2, encounter_3};
+    // }
 
     Encounter ChooseEncounter()
     {
