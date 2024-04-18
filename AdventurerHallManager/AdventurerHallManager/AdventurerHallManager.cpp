@@ -314,15 +314,15 @@ Adventure CreateAdventure(string name)
     //Giant's Summit
     newAdventure.AdventureTree->Root->left->right->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Giant's Summit",
-        ""));
+        "The top of this mountain is cold, windy, inhospitable. At first, only traces of its inhabitants are visible. Goat bones here, a crude runic painting there. Eventually the party climbs up to what looks like a small fort, made out of torn out trees and boulders tied together with furs and vines. Upon entering, it is obvious the creature that lives here is at least 5 times the size of a regular adventurer."));
     newAdventure.AdventureTree->Root->left->right->right->left->data.SetUniqueEncounter(
-        Encounter("", true, "", 40, 100, 50, 0));
+        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0));
     //Harpy's Nest
     newAdventure.AdventureTree->Root->left->right->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Harpy's Nest",
-        ""));
+        "Weird sounds can be heard from a considerable distance from this mountain peak. A mixture between singing and croaking. Then, as the party approaches, the singing is clearer, more beautiful. Climbing up to the top, they find a huge nest of intertwined branches and bones, filled with bird-like creatures, with raven wings and a woman's body. Their eyes glow a deep yellow and their beaks are menacing."));
     newAdventure.AdventureTree->Root->left->right->right->right->data.SetUniqueEncounter(
-        Encounter("", true, "", 40, 100, 50, 0));
+        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0));
 
     return newAdventure;
 }
