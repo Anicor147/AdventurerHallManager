@@ -140,7 +140,7 @@ Adventure CreateAdventure(string name)
     //Harpy's Nest
     rootNode->left->right->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Harpy's Nest",
-        "Weird sounds can be heard from a considerable distance from this mountain peak. A mixture between singing and croaking. Then, as the party approaches, the singing is clearer, more beautiful. Climbing up to the top, they find a huge nest of intertwined branches and bones, filled with bird-like creatures, with raven wings and a woman's body. Their eyes glow a deep yellow and their beaks are menacing.",
+        "Weird sounds can be heard from a considerable distance from this mountain peak. A mixture between singing and croaking. Then, as the party approaches, the singing is clearer, more beautiful. Climbing up to the top, they find a huge nest of intertwined branches and bones, filled with bird-like creatures, with raven wings and a woman's body. Their eyes glow a deep yellow and their beaks are menacing. Their Queen is twice the size of the others, and points a bony, clawed finger in your party's direction.",
         Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0),
         Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0),
         Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0)));
@@ -151,31 +151,76 @@ Adventure CreateAdventure(string name)
 
 void AdventureTraversal(Adventure* adventure)
 {
-    cout << adventure->CurrentNode->data.GetName() << endl << adventure->CurrentNode->data.GetDescription() << endl << endl;
-    cout << adventure->CurrentNode->data.chosenEncounter.name << endl << adventure->CurrentNode->data.chosenEncounter.GetDescription() << endl << endl;
-    if (adventure->CurrentNode->data.chosenEncounter.isBattle)
+    bool isAdventureOver = false;
+    char userInput = ' ';
+    do
     {
-        //battle code
-    }
-    else
-    {
-        if (adventure->CurrentNode->data.chosenEncounter.healValue > 0)
+        cout << adventure->CurrentNode->data.GetName() << endl << adventure->CurrentNode->data.GetDescription() << endl << endl;
+        cout << adventure->CurrentNode->data.chosenEncounter.name << endl << adventure->CurrentNode->data.chosenEncounter.GetDescription() << endl << endl;
+        if (adventure->CurrentNode->data.chosenEncounter.isBattle)
         {
-            cout << "Your party is healed by " << adventure->CurrentNode->data.chosenEncounter.healValue << "!" << endl;
-            // code pour healer
+            //battle code
         }
-        if (adventure->CurrentNode->data.chosenEncounter.goldValue > 0)
+        else
         {
-            cout << "Your party receives " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
-            //code pour gagner du gold
+            if (adventure->CurrentNode->data.chosenEncounter.healValue > 0)
+            {
+                cout << "Your party is healed by " << adventure->CurrentNode->data.chosenEncounter.healValue << "!" << endl;
+                // code pour healer
+            }
+            if (adventure->CurrentNode->data.chosenEncounter.goldValue > 0)
+            {
+                cout << "Your party receives " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
+                //code pour gagner du gold
+            }
+            if (adventure->CurrentNode->data.chosenEncounter.goldValue < 0)
+            {
+                cout << "Your party has lost " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
+                //code pour perdre du gold
+            }
         }
-        if (adventure->CurrentNode->data.chosenEncounter.goldValue < 0)
+        cout << endl << endl << "Choose your party's next move" << endl;
+        if (adventure->CurrentNode == adventure->RootNode)
         {
-            cout << "Your party has lost " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!"  << endl;
-            //code pour perdre du gold
+            cout << "1 - Continue to the Crossroads" << endl;
         }
-    }
-    
+        else if (adventure->CurrentNode->left != NULL)
+        {
+            cout << "1 - " << adventure->CurrentNode->left->data.GetName() << endl
+            << "2 - " << adventure->CurrentNode->right->data.GetName() << endl
+            << "3 - Retreat to Guild Hall (Lose half of your earned gold)" << endl;
+        }
+        else
+        {
+            string trophy = "";
+        
+            cout << "Congratulations, your party has completed an adventure and gained a trophy: " << trophy << endl << endl;
+            isAdventureOver = true;
+        }
+        do
+        {
+            cin >> userInput;
+            if (userInput != '1' && userInput != '2' && userInput != '3')
+            {
+                cout << "Please enter a valid option" << endl;
+            }
+        }
+        while (userInput != '1' && userInput != '2' && userInput != '3');
+
+        switch (userInput)
+        {
+        case '1':
+            adventure->CurrentNode = adventure->CurrentNode->left;
+            break;
+        case '2':
+            adventure->CurrentNode = adventure->CurrentNode->right;
+            break;
+        case '3':
+            isAdventureOver = true;
+            break;
+        }
+        
+    }while (!isAdventureOver);
 }
 
 void DisplayShop()
