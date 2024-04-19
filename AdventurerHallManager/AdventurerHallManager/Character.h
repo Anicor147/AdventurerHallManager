@@ -33,6 +33,7 @@ class Character
 public:
     int damage;
     int hp;
+    int currentHP;
     string name;
     int level;
     Race race;
@@ -73,13 +74,14 @@ public:
           level(_level)
     {
         name = GetNameFromFile(raceFileMap[race]);
+        currentHP = _hp;
     }
 
     void DisplayCharInfo()
     {
-        cout << " ||" + name << ", " << "Level: " << to_string(level) << " " + raceToString[race] << " " +
-            classeToString[classe] << "\n";
-        //cout << "Name: " << name + "\t" << "Race: " << raceToString[race] +"\t"<< "Classe: " << classeToString[classe]+"\t"<< "Level: "<<to_string(level) + "\t";
+        cout << " ||" + name << ", " << "Level " << to_string(level) << " " + raceToString[race] << " " +
+            classeToString[classe] << " ; " << currentHP << "/" << hp <<" HP" "\n";
+        
     }
 
     ~Character() = default;

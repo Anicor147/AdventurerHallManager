@@ -7,6 +7,7 @@ struct Encounter
 {
 public:
     string name;
+    string trophy;
     bool isBattle;
     int goldValue;
     int healValue;
@@ -48,17 +49,20 @@ public:
     {
         name = "";
         description = "";
+        trophy = "";
     }
     
     //~Encounter() {}
-    Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp, int gold, int heal)
+    Encounter(const string& name, bool is_battle, const string& description, int dmg, int hp, int gold, int heal, const string& trophy = "")
         : name(name),
           isBattle(is_battle),
           description(description),
           dmg(dmg),
           hp(hp),
           goldValue(gold),
-          healValue(heal)
+          healValue(heal),
+          trophy(trophy)
+
     {
     }
 };

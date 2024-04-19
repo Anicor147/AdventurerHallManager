@@ -4,15 +4,16 @@
 #include "Character.h"
 #include "Shop.h"
 #include <queue>
+#include <windows.h>
 
 static bool inMainMenu = true;
 static bool inSecondMenu = false;
 string userChoice;
 int userInt;
-Character c1 = Character(10, 50, Human, Fighter, 1);
-Character c2 = Character(10, 50, Elf, Rogue, 1);
-Character c3 = Character(10, 50, HalfOrc, Wizard, 1);
-Character c4 = Character(10, 50, Halfling, Cleric, 1);
+Character c1 = Character(5, 50, Human, Fighter, 1);
+Character c2 = Character(5, 50, Elf, Rogue, 1);
+Character c3 = Character(5, 50, HalfOrc, Wizard, 1);
+Character c4 = Character(5, 50, Halfling, Cleric, 1);
 // Array Pour le Party
 
 vector<Character> theParty = {c1, c2, c3, c4};
@@ -64,16 +65,16 @@ Adventure CreateAdventure(string name)
     rootNode->left->left->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Goblin Camp",
         "Huts adorned with animal bones, a big campfire in the center, and so, so many goblins roaming around.",
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0),
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0),
-        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0)));
+        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0, "Goblin Shaman's Staff"),
+        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0, "Goblin Shaman's Staff"),
+        Encounter("Goblin Shaman", true, " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!", 40, 100, 50, 0, "Goblin Shaman's Staff")));
     //Druid Grove
     rootNode->left->left->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Druid Grove",
         "The plants and animals around here seem to try to drive your party away. The druids do not tolerate intruders in their secret grove.",
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0),
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0),
-        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0)));
+        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0, "Druidic Totem"),
+        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0, "Druidic Totem"),
+        Encounter("Angry Druids", true, "Some of the druids transform into feral beasts and leap at the party while others stay back and use their druidic magic to harass and hinder. They are well coordinated and use the terrain to their advantage.", 40, 100, 50, 0, "Druidic Totem")));
     //Swamp
     rootNode->left->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Swamps",
@@ -85,16 +86,16 @@ Adventure CreateAdventure(string name)
     rootNode->left->left->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Troll Cave",
         "A damp cave so dark torchlight seems to wither away as the party enters. A stench hits them with the full force of a hundred rotting carcasses, so foul it takes all the strength in their bodies to avoid retching and falling unconcious. And then a growl comes from deeper in the lair. The troll has awakened!",
-        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0),
-        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0),
-        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0)));
+        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0, "Troll Hide"),
+        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0, "Troll Hide"),
+        Encounter("Troll", true, "The Troll's nasty club is bigger than the tallest warrior, and its claws as sharp as razors! It laughs gutturally while deciding which member of your party it will eat first.", 40, 100, 50, 0, "Troll Hide")));
     //Lizardmen Temple
     rootNode->left->left->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Lizardmen Temple",
-        "This part of the swamps is filled with luxurious vegetation, almost jungle-like. Between the trees, stone totems with angry faces and bone idols representing a serpent god can be seen. Then, a temple, shaped like a pyramid, adorned in gold and precious stones. It is guarded by many a warrior, curled warrior figures with scaly skin, lizard heads and tails, and spears and axes. At the top of the pyramid, a priest, wielding a jeweled mace and a ritual dagger, is about to sacrifice some poor victim while chanting to its serpent god!",
-        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0),
-        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0),
-        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0)));
+        "This part of the swamps is filled with luxurious vegetation, almost jungle-like. Between the trees, stone totems with angry faces and bone idols representing a serpent god can be seen. Then, a temple, shaped like a pyramid, adorned in gold and precious stones. It is guarded by many a warrior, curled figures with scaly skin, lizard heads and tails, and spears and axes. At the top of the pyramid, a priest, wielding a jeweled mace and a ritual dagger, is about to sacrifice some poor victim while chanting to its serpent god!",
+        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0, "Saurian Sacred Tablet"),
+        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0, "Saurian Sacred Tablet"),
+        Encounter("Lizarmen Warriors", true, "The priest sees the party from atop the temple and yells. Suddenly, spears and stones are raining from all directions! The serpent god's worshippers have been angered.", 40, 100, 50, 0, "Saurian Sacred Tablet")));
     //River Road
     rootNode->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "River Road",
@@ -113,16 +114,16 @@ Adventure CreateAdventure(string name)
     rootNode->left->right->left->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Pirate Hideout",
         "This cove is well known to be a pirate safe haven. After traversing some well hidden paths between cliffs and trees, the party lay there eyes on a plethora of vessels, from small boats to large frigates, all sporting different versions of the skull and bones flag.",
-        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0),
-        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0),
-        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0)));
+        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0, "Jolly Roger"),
+        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0, "Jolly Roger"),
+        Encounter("Pirate King", true, "After fighting a bunch of drunken sailors, the Pirate King emerges from his makeshift palace. He challenges the party to a fair fight... And immediately calls for all his corsairs to attack!", 40, 100, 50, 0, "Jolly Roger")));
     //Fishmen Lagoon
     rootNode->left->right->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Fishmen Lagoon",
         "This reef is dotted with beautiful coral formations and rocky formations. With a closer look though, it is possible to see bone statues, fishing boat carcasses and strange, wet, slimy creatures moving about, yapping at each other in their gurgly language.", 
-        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0),
-        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0),
-        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0)));
+        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0, "Black Pearl"),
+        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0, "Black Pearl"),
+        Encounter("Fishmen Assault", true, "The creatures spot the party and point their crooked harpoons at them. More of them come out of pools and small grottos. And then, a massive, half-octopus, half ogre creature rises from beneath the surface. It charges at the party.", 40, 100, 50, 0, "Black Pearl")));
     //Mountain
     rootNode->left->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Mountain",
@@ -134,32 +135,170 @@ Adventure CreateAdventure(string name)
     rootNode->left->right->right->left = new TreeNode<AdventurePoint>(AdventurePoint(
         "Giant's Summit",
         "The top of this mountain is cold, windy, inhospitable. At first, only traces of its inhabitants are visible. Goat bones here, a crude runic painting there. Eventually the party climbs up to what looks like a small fort, made out of torn out trees and boulders tied together with furs and vines. Upon entering, it is obvious the creature that lives here is at least 5 times the size of a regular adventurer.",
-        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0),
-        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0),
-        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0)));
+        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0, "Giant's Axe"),
+        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0, "Giant's Axe"),
+        Encounter("Mountain Giant", true, "The giant comes out of its home, axe in hand. Visitors are not welcome in its abode, and the punishment for trespassing is getting cleaved in half.", 40, 100, 50, 0, "Giant's Axe")));
     //Harpy's Nest
     rootNode->left->right->right->right = new TreeNode<AdventurePoint>(AdventurePoint(
         "Harpy's Nest",
         "Weird sounds can be heard from a considerable distance from this mountain peak. A mixture between singing and croaking. Then, as the party approaches, the singing is clearer, more beautiful. Climbing up to the top, they find a huge nest of intertwined branches and bones, filled with bird-like creatures, with raven wings and a woman's body. Their eyes glow a deep yellow and their beaks are menacing. Their Queen is twice the size of the others, and points a bony, clawed finger in your party's direction.",
-        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0),
-        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0),
-        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0)));
+        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0, "Queen's Feather"),
+        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0, "Queen's Feather"),
+        Encounter("Harpy Hags", true, "The Harpys lunge and sweep at the party, attacking with their beaks and claws, attempting to push the heroes down the steep cliffs of the mountain.", 40, 100, 50, 0, "Queen's Feather")));
 
     Adventure newAdventure = Adventure(name, rootNode);
     return newAdventure;
+}
+
+void Combat(vector<Character>& party, Encounter* ennemi)
+{
+    //initiative
+    bool isPartyTurn = false;
+    srand(static_cast<unsigned int>(time(nullptr)));
+    if ((rand() %  2) == 1)
+    {
+        isPartyTurn = true;
+    }
+
+    cout << "Combat Begins!\n";
+    Sleep(1000);
+    if (isPartyTurn)
+    {
+        cout << "The party wins the initiative.\n\n";
+    }
+    else
+    {
+        cout << "The enemy wins the initiative.\n\n";
+    }
+    Sleep(1000);
+    //combat loop
+    while(ennemi->GetHP() > 0 && !party.empty())
+    {
+        if (isPartyTurn)
+        {
+            for (auto character : party)
+            {
+                if (ennemi->GetHP() > 0)
+                {
+                    int dmg = character.damage + (rand() % 6);
+                    // Fighter Ability
+                    if (character.classe == Fighter)
+                    {
+                        dmg += character.level;
+                    }
+
+                    //Apply dmg to ennemy HP
+                    ennemi->SetHP(ennemi->GetHP()-dmg);
+                    string ennemiHP = (ennemi->GetHP()>0) ? std::to_string(ennemi->GetHP()) : "0";
+                    cout << character.name << " the " << character.classeToString[character.classe] << " attacks enemy for " << dmg << " points of damage! \n" 
+                    << "Enemy has " << ennemiHP << " HP remaining.\n";
+                    Sleep(1000);
+                }
+                
+            }
+        }
+        else
+        {
+            int victim = rand() % party.size();
+            int dmgMod = rand() % 6;
+            if (rand() % 2 == 1 && dmgMod != 0)
+            {
+                dmgMod = -dmgMod;
+            }
+            int dmg = ennemi->GetDamage() + dmgMod;
+            
+
+            cout << "Enemy strikes " << party[victim].name << " the " << party[victim].classeToString[party[victim].classe] << " for " << dmg << " points of damage. \n";
+            Sleep(1000);
+            for (auto character : party)
+            {
+                if(character.classe == Wizard)
+                {
+                    if (rand() % 2 == 1)
+                    {
+                        dmg -= character.level;
+                        cout << character.name << " the Wizard has shielded " << character.level << " points of damage from the incoming attack reducing it to " << dmg << "!\n"; 
+                        Sleep(1000);
+                    }
+                }
+            }
+            
+            if (dmg > 0)
+            {
+                party[victim].currentHP -= dmg;
+
+                if (party[victim].currentHP > 0)
+                {
+                    cout << party[victim].name << " has " << party[victim].currentHP << "/" << party[victim].hp << " HP left. \n";
+                }
+                else
+                {
+                    cout << "Oh no! " << party[victim].name << " has died!\n";
+                    party.erase(party.begin()+victim);
+                }
+            }
+            else
+            {
+                cout << "All damage has been shielded.\n";
+            }
+            Sleep(1000);
+        }
+        isPartyTurn = !isPartyTurn;
+    }
+
+    cout << "End of Combat.\n";
+    Sleep(1000);
+    if (!party.empty())
+    {
+        cout << "The party prevails!\n";
+        Sleep(1000);
+        for (auto healer : party)
+        {
+            if (healer.classe == Cleric)
+            {
+                for (auto character : party)
+                {
+                    character.currentHP += healer.level;
+                    if (character.currentHP > character.hp)
+                    {
+                        character.currentHP = character.hp;
+                    }
+                }
+                cout << healer.name << " the Cleric healed the party for " << healer.level << " HP!\n";
+                Sleep(1000);
+            }
+        }
+        for (auto member : party)
+        {
+            member.DisplayCharInfo();
+        }
+        
+    }
+    else
+    {
+        cout << "Everybody is dead. Time to recruit some more adventurers.\n";
+        Sleep(1000);
+    }
 }
 
 void AdventureTraversal(Adventure* adventure)
 {
     bool isAdventureOver = false;
     char userInput = ' ';
+    string myString = "";
     do
     {
         cout << adventure->CurrentNode->data.GetName() << endl << adventure->CurrentNode->data.GetDescription() << endl << endl;
+        do
+        {
+            cout << "Press 1 to continue.\n";
+            cin >> myString;
+        } while (myString != "1");
+        system("CLS");
         cout << adventure->CurrentNode->data.chosenEncounter.name << endl << adventure->CurrentNode->data.chosenEncounter.GetDescription() << endl << endl;
         if (adventure->CurrentNode->data.chosenEncounter.isBattle)
         {
-            //battle code
+            Combat(theParty, &adventure->CurrentNode->data.chosenEncounter);
         }
         else
         {
@@ -179,23 +318,39 @@ void AdventureTraversal(Adventure* adventure)
                 //code pour perdre du gold
             }
         }
-        cout << endl << endl << "Choose your party's next move" << endl;
-        if (adventure->CurrentNode == adventure->RootNode)
+        do
         {
-            cout << "1 - Continue to the Crossroads" << endl;
-        }
-        else if (adventure->CurrentNode->left != NULL)
+            cout << "Press 1 to continue.\n";
+            cin >> myString;
+        } while (myString != "1");
+        system("CLS");
+        if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
-            cout << "1 - " << adventure->CurrentNode->left->data.GetName() << endl
-            << "2 - " << adventure->CurrentNode->right->data.GetName() << endl
-            << "3 - Retreat to Guild Hall (Lose half of your earned gold)" << endl;
+            cout << endl << endl << "Choose your party's next move" << endl;
+            
+            if (adventure->CurrentNode == adventure->RootNode)
+            {
+                cout << "1 - Continue to the Crossroads" << endl;
+            }
+            else if (adventure->CurrentNode->left != NULL)
+            {
+                cout << "1 - " << adventure->CurrentNode->left->data.GetName() << endl
+                << "2 - " << adventure->CurrentNode->right->data.GetName() << endl
+                << "3 - Retreat to Guild Hall (Lose half of your earned gold)" << endl;
+            }
+            
         }
         else
         {
-            string trophy = "";
-        
-            cout << "Congratulations, your party has completed an adventure and gained a trophy: " << trophy << endl << endl;
+            cout << "Congratulations, your party has completed an adventure and gained a trophy: " << adventure->CurrentNode->data.chosenEncounter.trophy << endl << endl;
             isAdventureOver = true;
+            do
+            {
+                cout << "Press 1 to go back to Guild Hall.\n";
+                cin >> myString;
+            } while (myString != "1");
+            system("CLS");
+            
         }
         do
         {
@@ -219,8 +374,9 @@ void AdventureTraversal(Adventure* adventure)
             isAdventureOver = true;
             break;
         }
-        
+        system("CLS");
     }while (!isAdventureOver);
+    
 }
 
 void DisplayShop()
@@ -297,6 +453,7 @@ void SecondMenu()
             case 1:
                 currentAdventure = CreateAdventure("Main Adventure");
                 AdventureTraversal(&currentAdventure);
+                system("CLS");
                 break;
             case 2:
                 DisplayShop();
@@ -382,18 +539,16 @@ int main(int argc, char* argv[])
 {
     for (int i = 0; i < 20; i++)
     {
-        Character c = Character(12, 45, Elf, Rogue, 1);
+        Character c = Character(5, 50, Elf, Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(10, 35, Elf, Cleric, 1);
+        Character v = Character(5, 50, Elf, Cleric, 1);
         recruit_queue_cleric.push(v);
-        Character x = Character(15, 50, Elf, Fighter, 1);
+        Character x = Character(5, 50, Elf, Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(15, 30, Elf, Wizard, 1);
+        Character y = Character(5, 50, Elf, Wizard, 1);
         recruit_queue_wizard.push(y);
     }
-    // Donne un seed au random seulement au debut du program
-    theParty.erase(theParty.begin());
-    theParty[0].DisplayCharInfo();
+    
    // Shop creation
     auto firstItem = ShopItem("A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.", "Stone Fireplace with Hearth", 30);
     auto secondItem = ShopItem("Sturdy wooden tables and benches, where your party can gather to dine and socialize.","Tables and Benches",50);
