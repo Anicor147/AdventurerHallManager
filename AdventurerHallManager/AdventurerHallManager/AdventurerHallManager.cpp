@@ -1,5 +1,4 @@
 #include <string>
-
 #include <fstream>
 #include "Adventure.h"
 #include "Character.h"
@@ -7,7 +6,6 @@
 #include "Hall.h"
 #include <queue>
 #include <windows.h>
-#include <conio.h>
 static bool inMainMenu = true;
 string userChoice;
 int userInt;
@@ -876,6 +874,9 @@ void RecruitPartyMember(vector<Character>& characters)
         case 4:
             characters.emplace_back(w);
             recruit_queue_wizard.pop();
+            break;
+        case 5 :
+            system("CLS");
             break;
         default:
             throw(userChoice);
