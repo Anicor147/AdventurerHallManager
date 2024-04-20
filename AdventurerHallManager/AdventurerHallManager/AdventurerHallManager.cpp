@@ -626,10 +626,10 @@ void AdventureTraversal(Adventure* adventure)
             << '\n';
         do
         {
-            cout << "Press 1 to continue.\n";
-            cin >> myString;
+            cout << "Press Enter to Proceed";
+            cin.get();
         }
-        while (myString != "1");
+        while (cin.get() != '\n');
         system("CLS");
         cout << adventure->CurrentNode->data.chosenEncounter.name << '\n' << adventure->CurrentNode->data.
             chosenEncounter.GetDescription() << '\n' << '\n';
@@ -698,10 +698,10 @@ void AdventureTraversal(Adventure* adventure)
         depth++;
         do
         {
-            cout << "Press 1 to continue.\n";
-            cin >> myString;
+            cout << "Press Enter to Proceed";
+            cin.get();
         }
-        while (myString != "1");
+        while (cin.get() != '\n');
         system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
@@ -754,10 +754,10 @@ void AdventureTraversal(Adventure* adventure)
 
             do
             {
-                cout << "Press 1 to go back to Guild Hall.\n";
-                cin >> myString;
+                cout << "Press Enter to Proceed";
+                cin.get();
             }
-            while (myString != "1");
+            while (cin.get() != '\n');
         }
 
         if (!isAdventureOver)
@@ -1019,7 +1019,6 @@ void CreateShop()
         "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
         "Stone Fireplace with Hearth", 30));
 }
-
 
 int main(int argc, char* argv[])
 {
