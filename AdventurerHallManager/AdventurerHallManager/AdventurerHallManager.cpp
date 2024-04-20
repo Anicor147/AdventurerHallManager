@@ -1,5 +1,6 @@
 #include <string>
 
+#include <fstream>
 #include "Adventure.h"
 #include "Character.h"
 #include "Shop.h"
@@ -8,7 +9,6 @@
 #include <windows.h>
 
 static bool inMainMenu = true;
-static bool inSecondMenu = false;
 string userChoice;
 int userInt;
 Character c1 = Character(5, 50, Human, Fighter, 1);
@@ -282,11 +282,11 @@ void Combat(vector<Character>& party, Encounter* ennemi)
                     // Fighter Ability
                     if (character.classe == Fighter)
                     {
-                        int bonusDmg = character.level ;
-                        if (rand()%11 == 0)
+                        int bonusDmg = character.level;
+                        if (rand() % 11 == 0)
                         {
                             bonusDmg += dmg;
-                            cout<<"CRITICAL HIT!!!\n";
+                            cout << "CRITICAL HIT!!!\n";
                         }
                         dmg += bonusDmg;
                     }
@@ -365,7 +365,7 @@ void Combat(vector<Character>& party, Encounter* ennemi)
             if (healer.classe == Cleric)
             {
                 int healValue = healer.level + rand() % 5;
-                for (int x = 0; x < party.size() ; x++)
+                for (int x = 0; x < party.size(); x++)
                 {
                     party[x].currentHP += healValue;
 
@@ -390,20 +390,71 @@ void Combat(vector<Character>& party, Encounter* ennemi)
     }
 }
 
+void HealParty()
+{
+    for (int i = 0; i < theParty.size(); ++i)
+    {
+        theParty[i].currentHP = theParty[i].hp;
+    }
+}
+
+void SaveGold(int gold)
+{
+    ofstream file("SavedData/SaveGold");
+    if (file.is_open())
+    {
+        file << gold;
+        file.close();
+    }
+}
+
+void SaveTrophies(vector<string> trophies)
+{
+    ofstream file("SavedData/SaveTrophies");
+    if (file.is_open())
+    {
+        for (auto element : trophies)
+        {
+            file << element << '\n';
+        }
+        file.close();
+    }  
+}
+
+void LoadData()
+{
+    ifstream goldSavedFile("SavedData/SaveGold");
+    if (goldSavedFile.is_open())
+    {
+        goldSavedFile >> theHall.totalGold;
+        goldSavedFile.close();
+    }
+
+    ifstream trophiesSavedData("SavedData/SaveTrophies");
+    if (trophiesSavedData.is_open())
+    {
+        string line;
+        while (getline(trophiesSavedData , line))
+        {
+            theHall.trophies.emplace_back(line);
+        }
+        trophiesSavedData.close();
+    }
+
+    
+}
+
 void AdventureTraversal(Adventure* adventure)
 {
+    int depth = 1;
     bool isAdventureOver = false;
     char userInput = ' ';
     string myString = "";
 
-    for (auto the_party : theParty)
-    {
-        the_party.currentHP = the_party.hp;
-    } 
     do
     {
-        cout << adventure->CurrentNode->data.GetName() << endl << adventure->CurrentNode->data.GetDescription() << endl
-            << endl;
+        cout << adventure->CurrentNode->data.GetName() << '\n' << adventure->CurrentNode->data.GetDescription() << '\n'
+            << '\n';
         do
         {
             cout << "Press 1 to continue.\n";
@@ -411,8 +462,8 @@ void AdventureTraversal(Adventure* adventure)
         }
         while (myString != "1");
         system("CLS");
-        cout << adventure->CurrentNode->data.chosenEncounter.name << endl << adventure->CurrentNode->data.
-            chosenEncounter.GetDescription() << endl << endl;
+        cout << adventure->CurrentNode->data.chosenEncounter.name << '\n' << adventure->CurrentNode->data.
+            chosenEncounter.GetDescription() << '\n' << '\n';
         if (adventure->CurrentNode->data.chosenEncounter.isBattle)
         {
             Combat(theParty, &adventure->CurrentNode->data.chosenEncounter);
@@ -424,24 +475,29 @@ void AdventureTraversal(Adventure* adventure)
                     if (rogue.classe == Rogue)
                     {
                         int bonusGold = rogue.level + rand() % 5;
-                        gainedGold += bonusGold ;
-                        cout << rogue.name << " the Rogue, has found " << bonusGold << " extra gold pieces!\n";                        
+                        gainedGold += bonusGold;
+                        cout << rogue.name << " the Rogue, has found " << bonusGold << " extra gold pieces!\n";
                     }
-                } 
+                }
                 cout << "Your party has scavenged a total of " << gainedGold << " gold from the battlefield!\n";
-                
+
                 currentAdventure.gold += gainedGold;
+                cout << "The party gained " << depth << " exp \n";
+
+                for (int i = 0; i < theParty.size(); i++)
+                {
+                    theParty[i].GainExp(depth);
+                }
             }
-          
         }
         else
         {
             if (adventure->CurrentNode->data.chosenEncounter.healValue > 0)
             {
                 cout << "Your party is healed by " << adventure->CurrentNode->data.chosenEncounter.healValue << "!" <<
-                    endl;
+                    '\n';
                 // code pour healer
-                for (int x = 0; x < theParty.size() ; x++)
+                for (int x = 0; x < theParty.size(); x++)
                 {
                     theParty[x].currentHP += adventure->CurrentNode->data.chosenEncounter.healValue;
 
@@ -451,25 +507,26 @@ void AdventureTraversal(Adventure* adventure)
                     }
                     theParty[x].DisplayCharInfo();
                 }
-                
             }
             if (adventure->CurrentNode->data.chosenEncounter.goldValue > 0)
             {
                 cout << "Your party receives " << adventure->CurrentNode->data.chosenEncounter.goldValue << " gold!" <<
-                    endl;
+                    '\n';
                 //code pour gagner du gold
                 currentAdventure.gold += adventure->CurrentNode->data.chosenEncounter.goldValue;
                 cout << "Your party has " << currentAdventure.gold << " gold\n";
             }
             if (adventure->CurrentNode->data.chosenEncounter.goldValue < 0)
             {
-                cout << "Your party has lost " << adventure->CurrentNode->data.chosenEncounter.goldValue*-1 << " gold!" <<
-                    endl;
+                cout << "Your party has lost " << adventure->CurrentNode->data.chosenEncounter.goldValue * -1 <<
+                    " gold!" <<
+                    '\n';
                 //code pour perdre du gold
                 currentAdventure.gold -= adventure->CurrentNode->data.chosenEncounter.goldValue;
                 cout << "Your party has " << currentAdventure.gold << " gold\n";
             }
         }
+        depth++;
         do
         {
             cout << "Press 1 to continue.\n";
@@ -479,22 +536,21 @@ void AdventureTraversal(Adventure* adventure)
         system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
-            cout  << "Choose your party's next move" << endl;
+            cout << "Choose your party's next move" << '\n';
 
             if (adventure->CurrentNode == adventure->RootNode)
             {
-                cout << "1 - Continue to the Crossroads" << endl;
+                cout << "1 - Continue to the Crossroads" << '\n';
             }
             else if (adventure->CurrentNode->left != NULL)
             {
-                cout << "1 - " << adventure->CurrentNode->left->data.GetName() << endl
-                    << "2 - " << adventure->CurrentNode->right->data.GetName() << endl
-                    << "3 - Retreat to Guild Hall (Lose half of your earned gold)" << endl;
+                cout << "1 - " << adventure->CurrentNode->left->data.GetName() << '\n'
+                    << "2 - " << adventure->CurrentNode->right->data.GetName() << '\n'
+                    << "3 - Retreat to Guild Hall (Lose half of your earned gold)" << '\n';
             }
         }
         else
         {
-           
             isAdventureOver = true;
             if (!theParty.empty())
             {
@@ -509,36 +565,44 @@ void AdventureTraversal(Adventure* adventure)
                 }
                 if (!hasTrophy)
                 {
-                    cout << "Congratulations, your party has completed an adventure and gained a trophy: " << adventure->
-                   CurrentNode->data.chosenEncounter.trophy << endl << endl;
+                    cout << "Congratulations, your party has completed an adventure and gained a trophy: " << adventure
+                        ->
+                        CurrentNode->data.chosenEncounter.trophy << '\n' << '\n';
                     theHall.trophies.emplace_back(adventure->CurrentNode->data.chosenEncounter.trophy);
                 }
                 else
                 {
-                    cout << "Congratulations, your party has completed an adventure, but you already own this trophy: " << adventure->
-                   CurrentNode->data.chosenEncounter.trophy << endl << endl;
+                    cout << "Congratulations, your party has completed an adventure, but you already own this trophy: "
+                        << adventure->
+                           CurrentNode->data.chosenEncounter.trophy << '\n' << '\n';
                 }
-            
-                cout << "Your party brings back  " << adventure->gold << " gold pieces\n"; 
+
+                cout << "Your party brings back  " << adventure->gold << " gold pieces\n";
+                HealParty();
+                SaveGold(theHall.totalGold);
+                SaveTrophies(theHall.trophies);
             }
-            
+
             do
             {
                 cout << "Press 1 to go back to Guild Hall.\n";
                 cin >> myString;
             }
             while (myString != "1");
-            system("CLS");
         }
-        do
+
+        if (!isAdventureOver)
         {
-            cin >> userInput;
-            if (userInput != '1' && userInput != '2' && userInput != '3')
+            do
             {
-                cout << "Please enter a valid option" << endl;
+                cin >> userInput;
+                if (userInput != '1' && userInput != '2' && userInput != '3')
+                {
+                    cout << "Please enter a valid option" << '\n';
+                }
             }
+            while (userInput != '1' && userInput != '2' && userInput != '3');
         }
-        while (userInput != '1' && userInput != '2' && userInput != '3');
 
         switch (userInput)
         {
@@ -551,7 +615,11 @@ void AdventureTraversal(Adventure* adventure)
         case '3':
             isAdventureOver = true;
             theHall.totalGold += adventure->gold / 2;
+            HealParty();
+
+            SaveGold(theHall.totalGold);
             break;
+        default: ;
         }
         system("CLS");
     }
@@ -577,6 +645,7 @@ void DisplayShop()
                     " gold\n";
                 theHall.totalGold -= theShop.shopItem.top().price;
                 theShop.shopItem.pop();
+                SaveGold(theHall.totalGold);
             }
             else
             {
@@ -643,19 +712,24 @@ void RecruitPartyMember(vector<Character>& characters)
     }
 }
 
-void DisplayHall(){
+void DisplayHall()
+{
     system("CLS");
-    cout << "Your vault contains " + theHall.totalGold << " gold\n" << "The Hall is furnished with: \n" ;
+    cout << "Your vault contains " << theHall.totalGold << " gold\n" << "The Hall is furnished with: \n";
     for (auto hall_item : theHall.hallItem)
     {
         hall_item.DisplayItemHall();
     }
-    
+    cout << "The trophy room is adorned with the following trophies : ";
+    for (auto hall_trophy : theHall.trophies)
+    {
+        cout << '\n' << hall_trophy;
+    }
+    cout << '\n';
 }
+
 void SecondMenu()
 {
-    inSecondMenu = true;
-
     do
     {
         cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit\n";
@@ -669,7 +743,7 @@ void SecondMenu()
                 system("CLS");
                 if (theParty.empty())
                 {
-                    cout<< "You need to recruit adventurer to go ";
+                    cout << "You need to recruit adventurers to go \n";
                 }
                 else
                 {
@@ -682,6 +756,7 @@ void SecondMenu()
                 DisplayShop();
                 break;
             case 3:
+                system("CLS");
                 if (theParty.size() < 4)
                 {
                     RecruitPartyMember(theParty);
@@ -712,8 +787,9 @@ void SecondMenu()
             SecondMenu();
         }
     }
-    while (inSecondMenu);
+    while (userInt != 6);
 }
+
 
 void MainMenu()
 {
@@ -724,11 +800,12 @@ void MainMenu()
         {
             cin >> userChoice;
             userInt = stoi(userChoice);
-           
+
             switch (userInt)
             {
             case 1:
                 system("CLS");
+                LoadData();
                 SecondMenu();
                 break;
             case 2:
@@ -767,7 +844,6 @@ void CreateShop()
         "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
         "Stone Fireplace with Hearth", 30));
 }
-
 
 
 int main(int argc, char* argv[])

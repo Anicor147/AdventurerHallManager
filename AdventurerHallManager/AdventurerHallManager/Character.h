@@ -31,6 +31,8 @@ enum Classe
 class Character
 {
 public:
+    int expToNextLvl;
+    int currentExp;
     int damage;
     int hp;
     int currentHP;
@@ -75,13 +77,37 @@ public:
     {
         name = GetNameFromFile(raceFileMap[race]);
         currentHP = _hp;
+        expToNextLvl = 5;
+        currentExp = 0;
+    }
+
+    void GainExp(int expGain)
+    {
+        currentExp += expGain;
+        if (currentExp >= expToNextLvl)
+        {
+            currentExp -= expToNextLvl;
+            expToNextLvl += 5;
+            hp += 5;
+            currentHP += 5;
+            level++;
+
+            if (classe == Fighter || classe == Rogue)
+            {
+                damage += 2;
+            }
+            else
+            {
+                damage += 1;
+            }
+            cout << name << " LEVELED UP!" << '\n';
+        }
     }
 
     void DisplayCharInfo()
     {
         cout << " ||" + name << ", " << "Level " << to_string(level) << " " + raceToString[race] << " " +
-            classeToString[classe] << " ; " << currentHP << "/" << hp <<" HP" "\n";
-        
+            classeToString[classe] << " ; " << currentHP << "/" << hp << " HP" "\n";
     }
 
     ~Character() = default;

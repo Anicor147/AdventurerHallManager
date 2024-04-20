@@ -16,11 +16,11 @@ public:
     }
     void DisplayItemInfo()
     {
-        std::cout << name + " || "<< description + " || " + std::to_string(price) + " Gold";
+        std::cout << name << " || "<< description << " || " << std::to_string(price) << " Gold";
     }
     void DisplayItemHall()
     {
-        std::cout << name + " || " +  description << "\n";
+        std::cout << name << " || " <<  description << "\n";
     }
     //~ShopItem();
 };

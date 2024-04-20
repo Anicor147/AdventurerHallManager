@@ -41,3 +41,9 @@ P
  AdventurerHallManager/ShopItem.h,b\1\b1adedfee20c3544058e301a03e7c64c81d1ce7e
 R
 "AdventurerHallManager/ShopItem.cpp,c\a\ca281a1431f6a358dc71cd2429c580ddf76b3d58
+X
+(AdventurerHallManager/SavedData/SaveGold,9\f\9f1861dc95361ad2ae2471bbb0e9872c27adcd58
+Y
+)AdventurerHallManager/SavedData/SaveItems,1\f\1fe0fd4c9de8165234edb8a710cbafc9e3288f5a
+\
+,AdventurerHallManager/SavedData/SaveTrophies,a\c\ac5d43b38ce725a003d616bc2b35df3c3b9b4f72

@@ -179,6 +179,10 @@
     <Content Include="NamesFolder\HalfOrcNames.txt" />
     <Content Include="NamesFolder\HumanNames.txt" />
     <Content Include="NamesFolder\TieflingNames.txt" />
+    <Content Include="SavedData\SaveGold" />
+    <Content Include="SavedData\SaveItems" />
+    <Content Include="SavedData\SaveParty" />
+    <Content Include="SavedData\SaveTrophies" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
