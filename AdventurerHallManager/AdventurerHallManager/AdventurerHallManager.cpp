@@ -447,6 +447,20 @@ void SaveItems(vector<ShopItem> hallInventory, stack<ShopItem> shopInventory)
     }
 }
 
+void SaveParty(vector<Character> party)
+{
+    ofstream fileParty("SavedData/SaveParty");
+    if (fileParty.is_open())
+    {
+        for (auto character : party)
+        {
+            fileParty << character.name << "|" << character.race << "|" << character.classe << "|" << character.level <<
+                "|" << character.currentExp << "|" << character.damage << "|" << character.hp << '\n';
+        }
+        fileParty.close();
+    }
+}
+
 void LoadData()
 {
     //Gold
@@ -521,7 +535,7 @@ void LoadData()
             tempVector.emplace_back(ShopItem(splitLine[1], splitLine[0], stoi(splitLine[2])));
         }
         itemsSavedData.close();
-        while(!theShop.shopItem.empty())
+        while (!theShop.shopItem.empty())
         {
             theShop.shopItem.pop();
         }
@@ -529,6 +543,51 @@ void LoadData()
         {
             theShop.shopItem.push(tempVector[i]);
         }
+    }
+    //Party
+    ifstream partySavedData("SavedData/SaveParty");
+    theParty.clear();
+    if (partySavedData.is_open())
+    {
+        string line;
+        map<int, Race> intToRace = {
+            {1, Human},
+            {0, Elf},
+            {2, Dwarf},
+            {3, Tiefling},
+            {4, Halfling},
+            {5, HalfOrc},
+            {6, Dragonborn},
+            {7, Gnome},
+            {8, HalfElf}
+        };
+        map<int, Classe> intToClasse = {
+            {0, Fighter},
+            {1, Cleric},
+            {2, Rogue},
+            {3, Wizard}
+        };
+        while (getline(partySavedData, line))
+        {
+            vector<string> splitLine;
+            int index = 0;
+            string temp = "";
+            splitLine.push_back(temp);
+            for (char value : line)
+            {
+                if (value != '|')
+                {
+                    splitLine[index] += value;
+                }
+                else
+                {
+                    splitLine.push_back(temp);
+                    index++;
+                }
+            }
+            theParty.push_back(Character(splitLine[0] , stoi(splitLine[5]), stoi(splitLine[6]), intToRace[stoi(splitLine[1])], intToClasse[stoi(splitLine[2])], stoi(splitLine[3]), stoi(splitLine[3])*5, stoi(splitLine[4])));
+        }
+        partySavedData.close();
     }
 }
 
@@ -821,7 +880,7 @@ void SecondMenu()
 {
     do
     {
-        cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Exit\n";
+        cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Save and Exit\n";
         try
         {
             cin >> userChoice;
@@ -862,6 +921,10 @@ void SecondMenu()
                 DisplayPartyInfo();
                 break;
             case 6:
+                SaveGold(theHall.totalGold);
+                SaveItems(theHall.hallItem, theShop.shopItem);
+                SaveTrophies(theHall.trophies);
+                SaveParty(theParty);
                 exit(0);
                 break;
             default:

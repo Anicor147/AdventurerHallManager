@@ -81,6 +81,19 @@ public:
         currentExp = 0;
     }
 
+    Character(string _name, int _damage, int _hp, Race _race, Classe _classe, int _level, int _expToNextLevel, int _currentXP)
+        : damage(_damage),
+          hp(_hp),
+          race(_race),
+          classe(_classe),
+          level(_level),
+          name(_name),
+          expToNextLvl(_expToNextLevel),
+          currentExp(_currentXP)
+    {
+        currentHP = _hp;
+    }
+
     void GainExp(int expGain)
     {
         currentExp += expGain;
