@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <random>
 using namespace std;
 
 enum Race
@@ -40,6 +41,7 @@ public:
     int level;
     Race race;
     Classe classe;
+   // random_device rnd; 
     //Dictionnaire qui contient le chemins pour chaque race
     map<Race, string> raceFileMap = {
         {Human, "NamesFolder/HumanNames.txt"},

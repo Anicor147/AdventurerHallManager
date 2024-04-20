@@ -11,30 +11,30 @@ string userChoice;
 int userInt;
 
 vector<Character> theParty;
+random_device rnd;
+
+map<int, Race> intToRace = {
+    {0, Human},
+    {1, Elf},
+    {2, Dwarf},
+    {3, Tiefling},
+    {4, Halfling},
+    {5, HalfOrc},
+    {6, Dragonborn},
+    {7, Gnome},
+    {8, HalfElf}
+};
 
 void CreateParty()
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
-
-    map<int, Race> intToRace = {
-        {0, Human},
-        {1, Elf},
-        {2, Dwarf},
-        {3, Tiefling},
-        {4, Halfling},
-        {5, HalfOrc},
-        {6, Dragonborn},
-        {7, Gnome},
-        {8, HalfElf}
-    };
     cout << "Building Character Data...";
-    Character c1 = Character(5, 50, intToRace[rand() % 9], Fighter, 1);
+    Character c1 = Character(5, 50, intToRace[rnd.operator()() % 9], Fighter, 1);
     Sleep(1000);
-    Character c2 = Character(5, 50, intToRace[rand() % 9], Rogue, 1);
+    Character c2 = Character(5, 50, intToRace[rnd.operator()() % 9], Rogue, 1);
     Sleep(1000);
-    Character c3 = Character(5, 50, intToRace[rand() % 9], Wizard, 1);
+    Character c3 = Character(5, 50, intToRace[rnd.operator()() % 9], Wizard, 1);
     Sleep(1000);
-    Character c4 = Character(5, 50, intToRace[rand() % 9], Cleric, 1);
+    Character c4 = Character(5, 50, intToRace[rnd.operator()() % 9], Cleric, 1);
     // Array Pour le Party
     theParty = {c1, c2, c3, c4};
     system("CLS");
@@ -273,8 +273,7 @@ void Combat(vector<Character>& party, Encounter* ennemi)
 {
     //initiative
     bool isPartyTurn = false;
-    srand(static_cast<unsigned int>(time(nullptr)));
-    if ((rand() % 2) == 1)
+    if ((rnd.operator()() % 2) == 1)
     {
         isPartyTurn = true;
     }
@@ -299,12 +298,12 @@ void Combat(vector<Character>& party, Encounter* ennemi)
             {
                 if (ennemi->GetHP() > 0)
                 {
-                    int dmg = character.damage + (rand() % 6);
+                    int dmg = character.damage + (rnd.operator()() % 6);
                     // Fighter Ability
                     if (character.classe == Fighter)
                     {
                         int bonusDmg = character.level;
-                        if (rand() % 11 == 0)
+                        if (rnd.operator()() % 11 == 0)
                         {
                             bonusDmg += dmg;
                             cout << "CRITICAL HIT!!!\n";
@@ -324,9 +323,9 @@ void Combat(vector<Character>& party, Encounter* ennemi)
         }
         else
         {
-            int victim = rand() % party.size();
-            int dmgMod = rand() % 6;
-            if (rand() % 2 == 1 && dmgMod != 0)
+            int victim = rnd.operator()() % party.size();
+            int dmgMod = rnd.operator()() % 6;
+            if (rnd.operator()() % 2 == 1 && dmgMod != 0)
             {
                 dmgMod = -dmgMod;
             }
@@ -340,8 +339,8 @@ void Combat(vector<Character>& party, Encounter* ennemi)
             {
                 if (character.classe == Wizard)
                 {
-                    int shieldValue = character.level + rand() % 5;
-                    if (rand() % 2 == 1)
+                    int shieldValue = character.level + rnd.operator()() % 5;
+                    if (rnd.operator()() % 2 == 1)
                     {
                         dmg -= shieldValue;
                         cout << character.name << " the Wizard has shielded " << shieldValue <<
@@ -385,7 +384,7 @@ void Combat(vector<Character>& party, Encounter* ennemi)
         {
             if (healer.classe == Cleric)
             {
-                int healValue = healer.level + rand() % 5;
+                int healValue = healer.level + rnd.operator()() % 5;
                 for (int x = 0; x < party.size(); x++)
                 {
                     party[x].currentHP += healValue;
@@ -567,7 +566,7 @@ void LoadData()
     }
     //Party
     ifstream partySavedData("SavedData/SaveParty");
-    theParty.clear();
+    //theParty.clear();
     if (partySavedData.is_open())
     {
         string line;
@@ -618,7 +617,7 @@ void AdventureTraversal(Adventure* adventure)
 {
     int depth = 1;
     bool isAdventureOver = false;
-    char userInput = ' ';
+    char userInput = 'a';
     string myString;
 
     do
@@ -647,7 +646,7 @@ void AdventureTraversal(Adventure* adventure)
                 {
                     if (rogue.classe == Rogue)
                     {
-                        int bonusGold = rogue.level + rand() % 5;
+                        int bonusGold = rogue.level + rnd.operator()() % 5;
                         gainedGold += bonusGold;
                         cout << rogue.name << " the Rogue, has found " << bonusGold << " extra gold pieces!\n";
                     }
@@ -703,10 +702,10 @@ void AdventureTraversal(Adventure* adventure)
         do
         {
             cout << "Press Enter to Proceed";
-            userInput =  cin.get();
+            userInput = cin.get();
         }
         while (userInput != '\n');
-            userInput = ' ';
+        userInput = ' ';
         system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
@@ -760,7 +759,7 @@ void AdventureTraversal(Adventure* adventure)
             do
             {
                 cout << "Press Enter to Proceed";
-               userInput = cin.get();
+                userInput = cin.get();
             }
             while (userInput != '\n');
             userInput = ' ';
@@ -875,7 +874,7 @@ void RecruitPartyMember(vector<Character>& characters)
             characters.emplace_back(w);
             recruit_queue_wizard.pop();
             break;
-        case 5 :
+        case 5:
             system("CLS");
             break;
         default:
@@ -1034,16 +1033,18 @@ int main(int argc, char* argv[])
 {
     for (int i = 0; i < 20; i++)
     {
-        Character c = Character(5, 50, Elf, Rogue, 1);
+        Character c = Character(5, 50, intToRace[rnd.operator()() % 9], Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(5, 50, Elf, Cleric, 1);
+        Character v = Character(5, 50, intToRace[rnd.operator()() % 9], Cleric, 1);
         recruit_queue_cleric.push(v);
-        Character x = Character(5, 50, Elf, Fighter, 1);
+        Character x = Character(5, 50, intToRace[rnd.operator()() % 9], Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(5, 50, Elf, Wizard, 1);
+        Character y = Character(5, 50, intToRace[rnd.operator()() % 9], Wizard, 1);
         recruit_queue_wizard.push(y);
     }
     CreateShop();
+
+    
 
 
     MainMenu();
