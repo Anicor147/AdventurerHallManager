@@ -45,7 +45,7 @@ public:
         {Human, "NamesFolder/HumanNames.txt"},
         {Elf, "NamesFolder/ElfNames.txt"},
         {Dwarf, "NamesFolder/DwarfNames.txt"},
-        {Tiefling, "NamesFolder/Tiefling.txt"},
+        {Tiefling, "NamesFolder/TieflingNames.txt"},
         {Halfling, "NamesFolder/HalflingNames.txt"},
         {HalfOrc, "NamesFolder/HalfOrcNames.txt"},
         {Dragonborn, "NamesFolder/DragonBornNames.txt"},

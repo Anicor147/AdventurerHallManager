@@ -11,14 +11,36 @@
 static bool inMainMenu = true;
 string userChoice;
 int userInt;
-Character c1 = Character(5, 50, Human, Fighter, 1);
-Character c2 = Character(5, 50, Elf, Rogue, 1);
-Character c3 = Character(5, 50, HalfOrc, Wizard, 1);
-Character c4 = Character(5, 50, Halfling, Cleric, 1);
-// Array Pour le Party
 
-vector<Character> theParty = {c1, c2, c3, c4};
+vector<Character> theParty;
 
+void CreateParty()
+{
+    srand(time(nullptr));
+
+    map<int, Race> intToRace = {
+        {0, Human},
+        {1, Elf},
+        {2, Dwarf},
+        {3, Tiefling},
+        {4, Halfling},
+        {5, HalfOrc},
+        {6, Dragonborn},
+        {7, Gnome},
+        {8, HalfElf}
+    };
+    cout << "Building Character Data...";
+    Character c1 = Character(5, 50, intToRace[rand()%9], Fighter, 1);
+    Sleep(1000);
+    Character c2 = Character(5, 50, intToRace[rand()%9], Rogue, 1);
+    Sleep(1000);
+    Character c3 = Character(5, 50, intToRace[rand()%9], Wizard, 1);
+    Sleep(1000);
+    Character c4 = Character(5, 50, intToRace[rand()%9], Cleric, 1);
+    // Array Pour le Party
+    theParty = {c1, c2, c3, c4};
+    system("CLS");
+}
 // Adventure init
 Adventure currentAdventure = Adventure("temp", nullptr);
 
@@ -962,6 +984,7 @@ void MainMenu()
                 break;
             case 2:
                 system("CLS");
+                CreateParty();
                 SecondMenu();
                 break;
             case 3:
