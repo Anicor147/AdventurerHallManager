@@ -7,7 +7,7 @@
 #include "Hall.h"
 #include <queue>
 #include <windows.h>
-
+#include <conio.h>
 static bool inMainMenu = true;
 string userChoice;
 int userInt;
@@ -16,7 +16,7 @@ vector<Character> theParty;
 
 void CreateParty()
 {
-    srand(time(nullptr));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     map<int, Race> intToRace = {
         {0, Human},
@@ -30,17 +30,18 @@ void CreateParty()
         {8, HalfElf}
     };
     cout << "Building Character Data...";
-    Character c1 = Character(5, 50, intToRace[rand()%9], Fighter, 1);
+    Character c1 = Character(5, 50, intToRace[rand() % 9], Fighter, 1);
     Sleep(1000);
-    Character c2 = Character(5, 50, intToRace[rand()%9], Rogue, 1);
+    Character c2 = Character(5, 50, intToRace[rand() % 9], Rogue, 1);
     Sleep(1000);
-    Character c3 = Character(5, 50, intToRace[rand()%9], Wizard, 1);
+    Character c3 = Character(5, 50, intToRace[rand() % 9], Wizard, 1);
     Sleep(1000);
-    Character c4 = Character(5, 50, intToRace[rand()%9], Cleric, 1);
+    Character c4 = Character(5, 50, intToRace[rand() % 9], Cleric, 1);
     // Array Pour le Party
     theParty = {c1, c2, c3, c4};
     system("CLS");
 }
+
 // Adventure init
 Adventure currentAdventure = Adventure("temp", nullptr);
 
@@ -607,7 +608,9 @@ void LoadData()
                     index++;
                 }
             }
-            theParty.push_back(Character(splitLine[0] , stoi(splitLine[5]), stoi(splitLine[6]), intToRace[stoi(splitLine[1])], intToClasse[stoi(splitLine[2])], stoi(splitLine[3]), stoi(splitLine[3])*5, stoi(splitLine[4])));
+            theParty.push_back(Character(splitLine[0], stoi(splitLine[5]), stoi(splitLine[6]),
+                                         intToRace[stoi(splitLine[1])], intToClasse[stoi(splitLine[2])],
+                                         stoi(splitLine[3]), stoi(splitLine[3]) * 5, stoi(splitLine[4])));
         }
         partySavedData.close();
     }
@@ -618,7 +621,7 @@ void AdventureTraversal(Adventure* adventure)
     int depth = 1;
     bool isAdventureOver = false;
     char userInput = ' ';
-    string myString = "";
+    string myString;
 
     do
     {
@@ -626,10 +629,13 @@ void AdventureTraversal(Adventure* adventure)
             << '\n';
         do
         {
-            cout << "Press Enter to Proceed";
-            cin.get();
+            cout << "Press Enter to Proceed: ";
+            userInput = cin.get();
+            cin.ignore();
         }
-        while (cin.get() != '\n');
+        while (userInput != '\n');
+        userInput = ' ';
+
         system("CLS");
         cout << adventure->CurrentNode->data.chosenEncounter.name << '\n' << adventure->CurrentNode->data.
             chosenEncounter.GetDescription() << '\n' << '\n';
@@ -699,9 +705,10 @@ void AdventureTraversal(Adventure* adventure)
         do
         {
             cout << "Press Enter to Proceed";
-            cin.get();
+            userInput =  cin.get();
         }
-        while (cin.get() != '\n');
+        while (userInput != '\n');
+            userInput = ' ';
         system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
@@ -755,9 +762,10 @@ void AdventureTraversal(Adventure* adventure)
             do
             {
                 cout << "Press Enter to Proceed";
-                cin.get();
+               userInput = cin.get();
             }
-            while (cin.get() != '\n');
+            while (userInput != '\n');
+            userInput = ' ';
         }
 
         if (!isAdventureOver)
@@ -902,7 +910,8 @@ void SecondMenu()
 {
     do
     {
-        cout << "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Save and Exit\n";
+        cout <<
+            "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Save and Exit\n";
         try
         {
             cin >> userChoice;
