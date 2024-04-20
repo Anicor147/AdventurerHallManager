@@ -1,12 +1,22 @@
-#include <map>
-#include <string>
+#pragma once
+#include <stack>
+#include <vector>
+
+#include "ShopItem.h"
+
 using namespace std;
 class Hall
 {
 public:
     int totalGold;
-    map<string,int> Shop;
-    map<string, string> Inventory;
+    vector<ShopItem> hallItem;
+    vector<string> trophies;
+    Hall(const vector<ShopItem>& hall_item)
+        : hallItem(hall_item)
+    {
+        totalGold = 0;
+    }
+
     
 private:
 protected:

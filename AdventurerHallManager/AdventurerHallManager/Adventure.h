@@ -10,6 +10,7 @@ public:
     TreeNode* left;
     TreeNode* right;
     T data;
+    
 
     TreeNode(T Data, TreeNode* _left = nullptr, TreeNode* _right = nullptr)
     {
@@ -58,6 +59,7 @@ public:
     BinaryTree* AdventureTree;
     TreeNode<AdventurePoint>* RootNode;
     TreeNode<AdventurePoint>* CurrentNode;
+    int gold;
 
     Adventure(const string& name, TreeNode<AdventurePoint>* root)
         : name(name)
@@ -66,6 +68,7 @@ public:
         RootNode = root;
         AdventureTree = new BinaryTree(RootNode);
         CurrentNode = AdventureTree->Root;
+        gold = 0;
     }
 
     // ~Adventure()
