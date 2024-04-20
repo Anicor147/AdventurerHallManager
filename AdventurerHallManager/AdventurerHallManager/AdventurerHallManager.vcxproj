@@ -182,6 +182,7 @@
     <Content Include="SavedData\SaveGold" />
     <Content Include="SavedData\SaveItems" />
     <Content Include="SavedData\SaveParty" />
+    <Content Include="SavedData\SaveShop" />
     <Content Include="SavedData\SaveTrophies" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

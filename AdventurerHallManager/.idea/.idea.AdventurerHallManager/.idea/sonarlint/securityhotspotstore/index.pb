@@ -47,3 +47,5 @@ Y
 )AdventurerHallManager/SavedData/SaveItems,1\f\1fe0fd4c9de8165234edb8a710cbafc9e3288f5a
 \
 ,AdventurerHallManager/SavedData/SaveTrophies,a\c\ac5d43b38ce725a003d616bc2b35df3c3b9b4f72
+X
+(AdventurerHallManager/SavedData/SaveShop,3\6\36b1da5a91b9617371ad0deef5a19fdd7db665b6

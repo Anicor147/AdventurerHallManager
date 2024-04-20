@@ -418,30 +418,118 @@ void SaveTrophies(vector<string> trophies)
             file << element << '\n';
         }
         file.close();
-    }  
+    }
+}
+
+void SaveItems(vector<ShopItem> hallInventory, stack<ShopItem> shopInventory)
+{
+    //HallItems
+    ofstream file("SavedData/SaveItems");
+    if (file.is_open())
+    {
+        for (auto element : hallInventory)
+        {
+            file << element.name << "|" << element.description << "|" << element.price << '\n';
+        }
+        file.close();
+    }
+    //ShopItems
+    ofstream fileShop("SavedData/SaveShop");
+    if (fileShop.is_open())
+    {
+        stack<ShopItem> tempShop = shopInventory;
+        while (!tempShop.empty())
+        {
+            fileShop << tempShop.top().name << "|" << tempShop.top().description << "|" << tempShop.top().price << '\n';
+            tempShop.pop();
+        }
+        fileShop.close();
+    }
 }
 
 void LoadData()
 {
+    //Gold
     ifstream goldSavedFile("SavedData/SaveGold");
     if (goldSavedFile.is_open())
     {
         goldSavedFile >> theHall.totalGold;
         goldSavedFile.close();
     }
-
+    //Trophies
     ifstream trophiesSavedData("SavedData/SaveTrophies");
     if (trophiesSavedData.is_open())
     {
         string line;
-        while (getline(trophiesSavedData , line))
+        while (getline(trophiesSavedData, line))
         {
             theHall.trophies.emplace_back(line);
         }
         trophiesSavedData.close();
     }
-
-    
+    //HallItems
+    ifstream itemsSavedData("SavedData/SaveItems");
+    if (itemsSavedData.is_open())
+    {
+        string line;
+        while (getline(itemsSavedData, line))
+        {
+            vector<string> splitLine;
+            int index = 0;
+            string temp = "";
+            splitLine.push_back(temp);
+            for (char value : line)
+            {
+                if (value != '|')
+                {
+                    splitLine[index] += value;
+                }
+                else
+                {
+                    splitLine.push_back(temp);
+                    index++;
+                }
+            }
+            theHall.hallItem.emplace_back(ShopItem(splitLine[1], splitLine[0], stoi(splitLine[2])));
+        }
+        itemsSavedData.close();
+    }
+    //ShopItems
+    ifstream shopSavedData("SavedData/SaveShop");
+    if (shopSavedData.is_open())
+    {
+        string line;
+        vector<ShopItem> tempVector;
+        while (getline(shopSavedData, line))
+        {
+            vector<string> splitLine;
+            int index = 0;
+            string temp = "";
+            splitLine.push_back(temp);
+            for (char value : line)
+            {
+                if (value != '|')
+                {
+                    splitLine[index] += value;
+                }
+                else
+                {
+                    splitLine.push_back(temp);
+                    index++;
+                }
+            }
+            tempVector.emplace_back(ShopItem(splitLine[1], splitLine[0], stoi(splitLine[2])));
+        }
+        itemsSavedData.close();
+        while(!theShop.shopItem.empty())
+        {
+            theShop.shopItem.pop();
+        }
+        for (int i = tempVector.size() - 1; i >= 0; i--)
+        {
+            theShop.shopItem.push(tempVector[i]);
+        }
+    }
 }
 
 void AdventureTraversal(Adventure* adventure)
@@ -646,6 +734,7 @@ void DisplayShop()
                 theHall.totalGold -= theShop.shopItem.top().price;
                 theShop.shopItem.pop();
                 SaveGold(theHall.totalGold);
+                SaveItems(theHall.hallItem, theShop.shopItem);
             }
             else
             {
