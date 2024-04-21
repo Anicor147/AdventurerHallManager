@@ -108,13 +108,13 @@ Adventure CreateAdventure(string name)
         "Goblin Camp",
         "Huts adorned with animal bones, a big campfire in the center, and so, so many goblins roaming around.",
         Encounter("Goblin Shaman", true,
-                  " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
+                  "The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
                   40, 100, 50, 0, "Goblin Shaman's Staff"),
         Encounter("Goblin Shaman", true,
-                  " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
+                  "The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
                   40, 100, 50, 0, "Goblin Shaman's Staff"),
         Encounter("Goblin Shaman", true,
-                  " The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
+                  "The goblin shaman cries out incantations in his guttural language, and yells out orders at his tribe. They attack from everywhere, and the shaman's magic is powerful!",
                   40, 100, 50, 0, "Goblin Shaman's Staff")));
     //Druid Grove
     rootNode->left->left->left->right = new TreeNode<AdventurePoint>(AdventurePoint(
@@ -262,6 +262,29 @@ Adventure CreateAdventure(string name)
 
     Adventure newAdventure = Adventure(name, rootNode);
     return newAdventure;
+}
+
+void PressEnter()
+{
+    char userInput = 'a';
+    do
+    {
+        cout << "Press Enter to Proceed";
+        userInput = cin.get();
+    }
+    while (userInput != '\n');
+}
+
+void PressEnter2()
+{
+    char userInput = 'a';
+    do
+    {
+        cout << "Press Enter to Proceed";
+        cin.ignore();
+        userInput = cin.get();
+    }
+    while (userInput != '\n');
 }
 
 void Combat(vector<Character>& party, Encounter* ennemi)
@@ -619,18 +642,13 @@ void AdventureTraversal(Adventure* adventure)
     {
         cout << adventure->CurrentNode->data.GetName() << '\n' << adventure->CurrentNode->data.GetDescription() << '\n'
             << '\n';
-        do
-        {
-            cout << "Press Enter to Proceed: ";
-            userInput = cin.get();
-            cin.ignore();
-        }
-        while (userInput != '\n');
-        userInput = ' ';
+        PressEnter2();
 
         system("CLS");
         cout << adventure->CurrentNode->data.chosenEncounter.name << '\n' << adventure->CurrentNode->data.
             chosenEncounter.GetDescription() << '\n' << '\n';
+        PressEnter();
+        system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.isBattle)
         {
             Combat(theParty, &adventure->CurrentNode->data.chosenEncounter);
@@ -694,13 +712,7 @@ void AdventureTraversal(Adventure* adventure)
             }
         }
         depth++;
-        do
-        {
-            cout << "Press Enter to Proceed";
-            userInput = cin.get();
-        }
-        while (userInput != '\n');
-        userInput = ' ';
+        PressEnter();
         system("CLS");
         if (adventure->CurrentNode->data.chosenEncounter.trophy == "")
         {
@@ -751,13 +763,7 @@ void AdventureTraversal(Adventure* adventure)
                 SaveTrophies(theHall.trophies);
             }
 
-            do
-            {
-                cout << "Press Enter to Proceed";
-                userInput = cin.get();
-            }
-            while (userInput != '\n');
-            userInput = ' ';
+            PressEnter();
         }
 
         if (!isAdventureOver)
@@ -797,45 +803,63 @@ void AdventureTraversal(Adventure* adventure)
 
 void DisplayShop()
 {
-    do
-    {
-        theShop.DisplayTopItem();
-        cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
-            " gold\n1: Buy \n2: Return to previous Menu\n";
-        cin >> userChoice;
-        userInt = stoi(userChoice);
-        switch (userInt)
+        if (theShop.shopItem.empty())
         {
-        case 1:
-            if (theHall.totalGold >= theShop.shopItem.top().price)
-            {
-                theHall.hallItem.emplace_back(theShop.shopItem.top());
-                cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price <<
-                    " gold\n";
-                theHall.totalGold -= theShop.shopItem.top().price;
-                theShop.shopItem.pop();
-                SaveGold(theHall.totalGold);
-                SaveItems(theHall.hallItem, theShop.shopItem);
-            }
-            else
-            {
-                system("CLS");
-                cout << "You don't have enough gold.\n";
-            }
-            break;
-        case 2:
-            system("CLS");
-            break;
+            cout << "There are no items left to buy.\n";
+            PressEnter2();
         }
-    }
-    while (userInt != 2);
+        else
+        {
+            do
+            {
+       
+                theShop.DisplayTopItem();
+                cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
+                    " gold\n1: Buy \n2: Return to previous Menu\n";
+                cin >> userChoice;
+                userInt = stoi(userChoice);
+                switch (userInt)
+                {
+                case 1:
+                    if (theHall.totalGold >= theShop.shopItem.top().price)
+                    {
+                        theHall.hallItem.emplace_back(theShop.shopItem.top());
+                        cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price <<
+                            " gold\n";
+                        theHall.totalGold -= theShop.shopItem.top().price;
+                        theShop.shopItem.pop();
+                        SaveGold(theHall.totalGold);
+                        SaveItems(theHall.hallItem, theShop.shopItem);
+                    }
+                    else
+                    {
+                        system("CLS");
+                        cout << "You don't have enough gold.\n";
+                    }
+                    break;
+                case 2:
+                    system("CLS");
+                    break;
+                }
+            }
+            while (userInt != 2);
+        }
 }
 
 void DisplayPartyInfo()
 {
     system("CLS");
-    for (Character x : theParty)
-        x.DisplayCharInfo();
+    if (theParty.empty())
+    {
+        cout << "Your party is currently empty. You should recruit adventurers.\n";
+    }
+    else
+    {
+        for (Character x : theParty)
+            x.DisplayCharInfo();
+    }
+    PressEnter2();
+    
 }
 
 
@@ -875,22 +899,26 @@ void RecruitPartyMember(vector<Character>& characters)
         switch (userInt)
         {
         case 1:
+            system("CLS");
             characters.emplace_back(f);
             cout << "Recruited "; f.DisplayCharInfo(); cout << '\n';
             recruit_queue_figther.pop();
             break;
 
         case 2:
+            system("CLS");
             characters.emplace_back(r);
             cout << "Recruited "; r.DisplayCharInfo(); cout << '\n';
             recruit_queue_rogue.pop();
             break;
         case 3:
+            system("CLS");
             characters.emplace_back(c);
             cout << "Recruited "; c.DisplayCharInfo(); cout << '\n';
             recruit_queue_cleric.pop();
             break;
         case 4:
+            system("CLS");
             characters.emplace_back(w);
             cout << "Recruited "; w.DisplayCharInfo(); cout << '\n';
             recruit_queue_wizard.pop();
@@ -914,23 +942,26 @@ void RecruitPartyMember(vector<Character>& characters)
 void DisplayHall()
 {
     system("CLS");
-    cout << "Your vault contains " << theHall.totalGold << " gold\n" << "The Hall is furnished with: \n";
+    cout << "Your vault contains " << theHall.totalGold << " gold\n\n" << "The Hall is furnished with: \n";
     for (auto hall_item : theHall.hallItem)
     {
         hall_item.DisplayItemHall();
     }
-    cout << "The trophy room is adorned with the following trophies : ";
+    cout << "\nThe trophy room is adorned with the following trophies : ";
     for (auto hall_trophy : theHall.trophies)
     {
         cout << '\n' << hall_trophy;
     }
     cout << '\n';
+
+    
 }
 
 void SecondMenu()
 {
     do
     {
+        system("CLS");
         cout <<
             "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Save and Exit\n";
         try
@@ -1055,13 +1086,13 @@ int main(int argc, char* argv[])
     srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 20; i++)
     {
-        Character c = Character(5, 50, intToRace[rnd.operator()() % 9], Rogue, 1);
+        Character c = Character(5, 50, intToRace[(rnd.operator()() -i) % 9], Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(5, 50, intToRace[rnd.operator()() + (rand()/10) % 9], Cleric, 1);
+        Character v = Character(5, 50, intToRace[rnd.operator()() + (rand()/(17*(i+1)) % 9)], Cleric, 1);
         recruit_queue_cleric.push(v);
-        Character x = Character(5, 50, intToRace[rand() % 9], Fighter, 1);
+        Character x = Character(5, 50, intToRace[(rand() - i) % 9], Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(5, 50, intToRace[(rnd.operator()() - rand()) % 9], Wizard, 1);
+        Character y = Character(5, 50, intToRace[(rnd.operator()() * (i+1) - rand()) % 9], Wizard, 1);
         recruit_queue_wizard.push(y);
     }
     CreateShop();
