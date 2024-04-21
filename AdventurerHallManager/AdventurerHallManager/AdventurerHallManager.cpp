@@ -1074,6 +1074,8 @@ void SecondMenu()
                 else
                 {
                     cout << "Your party is full. You can't recruit now\n";
+                    PressEnter2();
+                    system("CLS");
                 }
                 break;
             case 4:
