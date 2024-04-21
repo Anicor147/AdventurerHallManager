@@ -18,12 +18,12 @@ public:
 
     void DisplayItemInfo()
     {
-        std::cout << name << " || " << description << " || " << std::to_string(price) << " Gold";
+        std::cout << name << " || " << std::to_string(price) << " Gold" <<"\n - " << description;
     }
 
     void DisplayItemHall()
     {
-        std::cout << name << " || " << description << "\n";
+        std::cout << name << "\n - " << description << "\n";
     }
 
     //~ShopItem();

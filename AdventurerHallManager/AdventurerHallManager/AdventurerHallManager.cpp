@@ -803,47 +803,47 @@ void AdventureTraversal(Adventure* adventure)
 
 void DisplayShop()
 {
-        if (theShop.shopItem.empty())
+    if (theShop.shopItem.empty())
+    {
+        cout << "There are no items left to buy.\n";
+        PressEnter2();
+    }
+    else
+    {
+        do
         {
-            cout << "There are no items left to buy.\n";
-            PressEnter2();
-        }
-        else
-        {
-            do
+            theShop.DisplayTopItem();
+            cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
+                " gold\n1: Buy \n2: Return to previous Menu\n";
+            cin >> userChoice;
+            userInt = stoi(userChoice);
+            switch (userInt)
             {
-       
-                theShop.DisplayTopItem();
-                cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
-                    " gold\n1: Buy \n2: Return to previous Menu\n";
-                cin >> userChoice;
-                userInt = stoi(userChoice);
-                switch (userInt)
+            case 1:
+                if (theHall.totalGold >= theShop.shopItem.top().price)
                 {
-                case 1:
-                    if (theHall.totalGold >= theShop.shopItem.top().price)
-                    {
-                        theHall.hallItem.emplace_back(theShop.shopItem.top());
-                        cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price <<
-                            " gold\n";
-                        theHall.totalGold -= theShop.shopItem.top().price;
-                        theShop.shopItem.pop();
-                        SaveGold(theHall.totalGold);
-                        SaveItems(theHall.hallItem, theShop.shopItem);
-                    }
-                    else
-                    {
-                        system("CLS");
-                        cout << "You don't have enough gold.\n";
-                    }
-                    break;
-                case 2:
-                    system("CLS");
-                    break;
+                    theHall.hallItem.emplace_back(theShop.shopItem.top());
+                    cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price
+                        <<
+                        " gold\n";
+                    theHall.totalGold -= theShop.shopItem.top().price;
+                    theShop.shopItem.pop();
+                    SaveGold(theHall.totalGold);
+                    SaveItems(theHall.hallItem, theShop.shopItem);
                 }
+                else
+                {
+                    system("CLS");
+                    cout << "You don't have enough gold.\n";
+                }
+                break;
+            case 2:
+                system("CLS");
+                break;
             }
-            while (userInt != 2);
         }
+        while (userInt != 2);
+    }
 }
 
 void DisplayPartyInfo()
@@ -859,7 +859,6 @@ void DisplayPartyInfo()
             x.DisplayCharInfo();
     }
     PressEnter2();
-    
 }
 
 
@@ -882,7 +881,6 @@ void RecruitPartyMember(vector<Character>& characters)
             member.DisplayCharInfo();
         }
     }
-    
     cout << "The following recruits are available for 10 gold each. Who do you want to hire?\nFighter\n1: ";
     f.DisplayCharInfo();
     cout << "\nRogue\n2: ";
@@ -900,28 +898,81 @@ void RecruitPartyMember(vector<Character>& characters)
         {
         case 1:
             system("CLS");
-            characters.emplace_back(f);
-            cout << "Recruited "; f.DisplayCharInfo(); cout << '\n';
-            recruit_queue_figther.pop();
+            if (theHall.totalGold < 10)
+            {
+                cout << "You do not have enough gold to hire adventurers.\n";
+            }
+            else
+            {
+                characters.emplace_back(f);
+                cout << "Recruited ";
+                f.DisplayCharInfo();
+                cout << "for 10 gold.\n";
+                theHall.totalGold -= 10;
+                SaveGold(theHall.totalGold);
+                recruit_queue_figther.pop();
+            }
+            PressEnter2();
+            system("CLS");
             break;
 
         case 2:
             system("CLS");
-            characters.emplace_back(r);
-            cout << "Recruited "; r.DisplayCharInfo(); cout << '\n';
-            recruit_queue_rogue.pop();
+            if (theHall.totalGold < 10)
+            {
+                cout << "You do not have enough gold to hire adventurers.\n";
+            }
+            else
+            {
+                characters.emplace_back(r);
+                cout << "Recruited ";
+                r.DisplayCharInfo();
+                cout << "for 10 gold.\n";
+                theHall.totalGold -= 10;
+                SaveGold(theHall.totalGold);
+                recruit_queue_rogue.pop();
+            }
+            PressEnter2();
+            system("CLS");
             break;
         case 3:
             system("CLS");
-            characters.emplace_back(c);
-            cout << "Recruited "; c.DisplayCharInfo(); cout << '\n';
-            recruit_queue_cleric.pop();
+            if (theHall.totalGold < 10)
+            {
+                cout << "You do not have enough gold to hire adventurers.\n";
+            }
+            else
+            {
+                characters.emplace_back(c);
+                cout << "Recruited ";
+                c.DisplayCharInfo();
+                cout << "for 10 gold.\n";
+                theHall.totalGold -= 10;
+                SaveGold(theHall.totalGold);
+                recruit_queue_cleric.pop();
+            }
+            PressEnter2();
+            system("CLS");
             break;
         case 4:
             system("CLS");
-            characters.emplace_back(w);
-            cout << "Recruited "; w.DisplayCharInfo(); cout << '\n';
-            recruit_queue_wizard.pop();
+            if (theHall.totalGold < 10)
+            {
+                cout << "You do not have enough gold to hire adventurers.\n";
+            }
+            else
+            {
+                characters.emplace_back(w);
+                cout << "Recruited ";
+                w.DisplayCharInfo();
+                cout << "for 10 gold.\n";
+                theHall.totalGold -= 10;
+                SaveGold(theHall.totalGold);
+                recruit_queue_wizard.pop();
+                
+            }
+            PressEnter2();
+            system("CLS");
             break;
         case 5:
             system("CLS");
@@ -943,25 +994,38 @@ void DisplayHall()
 {
     system("CLS");
     cout << "Your vault contains " << theHall.totalGold << " gold\n\n" << "The Hall is furnished with: \n";
+    if (!theHall.hallItem.empty())
+    {
     for (auto hall_item : theHall.hallItem)
     {
         hall_item.DisplayItemHall();
     }
+    }
+    else
+    {
+        cout << "No items purchased yet. You can buy items in the Shop.\n";
+    }
     cout << "\nThe trophy room is adorned with the following trophies : ";
+    if (!theHall.trophies.empty())
+    {
     for (auto hall_trophy : theHall.trophies)
     {
         cout << '\n' << hall_trophy;
     }
-    cout << '\n';
-
-    
+    }
+    else
+    {
+        cout << "\nNo trophies collected yet. Complete an adventure to earn a trophy.\n";
+    }
+    cout << "\n\n";
+    PressEnter2();
+    system("CLS");
 }
 
 void SecondMenu()
 {
     do
     {
-        system("CLS");
         cout <<
             "Adventure Hall Manager\n1: Go Adventure\n2: Shop\n3: Recruit\n4: View Hall\n5: View Party\n6: Save and Exit\n";
         try
@@ -1068,17 +1132,23 @@ void MainMenu()
 void CreateShop()
 {
     theShop.shopItem.push(ShopItem(
-        "An old and well construct wooden barrel. It seems like we cant empty it no matters of much we drink.",
-        "Bottomless wine barrel", 150));
+        "A set of impressive marble statues representing the most legendary adventurers. A tribute to fallen comrades that will not be forgotten.",
+        "Heroic Statues", 800));
     theShop.shopItem.push(ShopItem(
-        " Elaborate chandeliers hanging from the ceiling, adorned with magical orbs to provide soft, warm lighting throughout the hall.",
+        "A collection of specialized gear for weapons and magic training including wooden mannequins and practice targets for archery and magic.",
+        "Training Equipment", 400));
+    theShop.shopItem.push(ShopItem(
+        "An old and well constructed wooden barrel. It seems like we can't empty it no matter how much we drink.",
+        "Bottomless wine barrel", 200));
+    theShop.shopItem.push(ShopItem(
+        "Elaborate chandeliers hanging from the ceiling, adorned with magical orbs to provide soft, warm lighting throughout the hall.",
         "Magical Chandeliers", 100));
     theShop.shopItem.push(ShopItem(
-        "Sturdy wooden tables and benches, where your party can gather to dine and socialize.", "Tables and Benches",
-        50));
+            "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
+            "Stone Fireplace with Hearth", 50));
     theShop.shopItem.push(ShopItem(
-        "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
-        "Stone Fireplace with Hearth", 30));
+        "Sturdy wooden tables and benches, where your party can gather to dine and socialize.", "Tables and Benches",
+        25));
 }
 
 int main(int argc, char* argv[])
@@ -1086,18 +1156,16 @@ int main(int argc, char* argv[])
     srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 20; i++)
     {
-        Character c = Character(5, 50, intToRace[(rnd.operator()() -i) % 9], Rogue, 1);
+        Character c = Character(5, 50, intToRace[(rnd.operator()() - i) % 9], Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(5, 50, intToRace[rnd.operator()() + (rand()/(17*(i+1)) % 9)], Cleric, 1);
+        Character v = Character(5, 50, intToRace[rnd.operator()() + (rand() / (17 * (i + 1)) % 9)], Cleric, 1);
         recruit_queue_cleric.push(v);
         Character x = Character(5, 50, intToRace[(rand() - i) % 9], Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(5, 50, intToRace[(rnd.operator()() * (i+1) - rand()) % 9], Wizard, 1);
+        Character y = Character(5, 50, intToRace[(rnd.operator()() * (i + 1) - rand()) % 9], Wizard, 1);
         recruit_queue_wizard.push(y);
     }
     CreateShop();
-
-    
 
 
     MainMenu();
