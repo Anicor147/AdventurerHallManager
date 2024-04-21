@@ -131,7 +131,7 @@ public:
     {
         ifstream file(filename);
         vector<string> names;
-        srand(static_cast<unsigned int>(time(nullptr)));
+        random_device rnd;
 
         if (file.is_open())
         {
@@ -141,7 +141,7 @@ public:
                 names.push_back(line);
             }
             file.close();
-            int randomIndex = rand() % names.size();
+            int randomIndex = rnd.operator()() % names.size();
 
             return names[randomIndex];
         }

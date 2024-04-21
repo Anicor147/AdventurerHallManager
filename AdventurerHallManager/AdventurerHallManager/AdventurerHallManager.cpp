@@ -27,17 +27,12 @@ map<int, Race> intToRace = {
 
 void CreateParty()
 {
-    cout << "Building Character Data...";
     Character c1 = Character(5, 50, intToRace[rnd.operator()() % 9], Fighter, 1);
-    Sleep(1000);
     Character c2 = Character(5, 50, intToRace[rnd.operator()() % 9], Rogue, 1);
-    Sleep(1000);
     Character c3 = Character(5, 50, intToRace[rnd.operator()() % 9], Wizard, 1);
-    Sleep(1000);
     Character c4 = Character(5, 50, intToRace[rnd.operator()() % 9], Cleric, 1);
     // Array Pour le Party
     theParty = {c1, c2, c3, c4};
-    system("CLS");
 }
 
 // Adventure init
@@ -846,11 +841,33 @@ void DisplayPartyInfo()
 
 void RecruitPartyMember(vector<Character>& characters)
 {
-    cout << "Adventure Hall Manager\n1: Rogue\n2: Cleric\n3: Fighter\n4: Wizard\n5: Exit\n";
     Character r = recruit_queue_rogue.front();
     Character c = recruit_queue_cleric.front();
     Character f = recruit_queue_figther.front();
     Character w = recruit_queue_wizard.front();
+    cout << "Welcome to the Recruiting Hall.\n";
+    if (theParty.empty())
+    {
+        cout << "Your party is currently empty.\n";
+    }
+    else
+    {
+        cout << "Your current party: \n";
+        for (auto member : theParty)
+        {
+            member.DisplayCharInfo();
+        }
+    }
+    
+    cout << "The following recruits are available for 10 gold each. Who do you want to hire?\nFighter\n1: ";
+    f.DisplayCharInfo();
+    cout << "\nRogue\n2: ";
+    r.DisplayCharInfo();
+    cout << "\nCleric\n3: ";
+    c.DisplayCharInfo();
+    cout << "\nWizard\n4: ";
+    w.DisplayCharInfo();
+    cout << "\n5: Exit\n";
     try
     {
         cin >> userChoice;
@@ -858,20 +875,24 @@ void RecruitPartyMember(vector<Character>& characters)
         switch (userInt)
         {
         case 1:
-            characters.emplace_back(r);
-            recruit_queue_rogue.pop();
+            characters.emplace_back(f);
+            cout << "Recruited "; f.DisplayCharInfo(); cout << '\n';
+            recruit_queue_figther.pop();
             break;
 
         case 2:
-            characters.emplace_back(c);
-            recruit_queue_cleric.pop();
+            characters.emplace_back(r);
+            cout << "Recruited "; r.DisplayCharInfo(); cout << '\n';
+            recruit_queue_rogue.pop();
             break;
         case 3:
-            characters.emplace_back(f);
-            recruit_queue_figther.pop();
+            characters.emplace_back(c);
+            cout << "Recruited "; c.DisplayCharInfo(); cout << '\n';
+            recruit_queue_cleric.pop();
             break;
         case 4:
             characters.emplace_back(w);
+            cout << "Recruited "; w.DisplayCharInfo(); cout << '\n';
             recruit_queue_wizard.pop();
             break;
         case 5:
@@ -1031,15 +1052,16 @@ void CreateShop()
 
 int main(int argc, char* argv[])
 {
+    srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 20; i++)
     {
         Character c = Character(5, 50, intToRace[rnd.operator()() % 9], Rogue, 1);
         recruit_queue_rogue.push(c);
-        Character v = Character(5, 50, intToRace[rnd.operator()() % 9], Cleric, 1);
+        Character v = Character(5, 50, intToRace[rnd.operator()() + (rand()/10) % 9], Cleric, 1);
         recruit_queue_cleric.push(v);
-        Character x = Character(5, 50, intToRace[rnd.operator()() % 9], Fighter, 1);
+        Character x = Character(5, 50, intToRace[rand() % 9], Fighter, 1);
         recruit_queue_figther.push(x);
-        Character y = Character(5, 50, intToRace[rnd.operator()() % 9], Wizard, 1);
+        Character y = Character(5, 50, intToRace[(rnd.operator()() - rand()) % 9], Wizard, 1);
         recruit_queue_wizard.push(y);
     }
     CreateShop();
