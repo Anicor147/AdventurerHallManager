@@ -707,7 +707,7 @@ void AdventureTraversal(Adventure* adventure)
                     " gold!" <<
                     '\n';
                 //code pour perdre du gold
-                currentAdventure.gold -= adventure->CurrentNode->data.chosenEncounter.goldValue;
+                currentAdventure.gold += adventure->CurrentNode->data.chosenEncounter.goldValue;
                 cout << "Your party has " << currentAdventure.gold << " gold\n";
             }
         }
@@ -807,44 +807,59 @@ void DisplayShop()
     {
         cout << "There are no items left to buy.\n";
         PressEnter2();
+        system("CLS");
     }
     else
     {
         do
         {
-            theShop.DisplayTopItem();
-            cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
-                " gold\n1: Buy \n2: Return to previous Menu\n";
-            cin >> userChoice;
-            userInt = stoi(userChoice);
-            switch (userInt)
+            if (theShop.shopItem.empty())
             {
-            case 1:
-                if (theHall.totalGold >= theShop.shopItem.top().price)
-                {
-                    theHall.hallItem.emplace_back(theShop.shopItem.top());
-                    cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price
-                        <<
-                        " gold\n";
-                    theHall.totalGold -= theShop.shopItem.top().price;
-                    theShop.shopItem.pop();
-                    SaveGold(theHall.totalGold);
-                    SaveItems(theHall.hallItem, theShop.shopItem);
-                }
-                else
-                {
-                    system("CLS");
-                    cout << "You don't have enough gold.\n";
-                }
-                break;
-            case 2:
+                cout << "There are no items left to buy.\n";
+                PressEnter();
                 system("CLS");
-                break;
+                return;
+            }
+            else
+            {
+                theShop.DisplayTopItem();
+                cout << "\nDo you wish to buy the item?\nYou have " << theHall.totalGold <<
+                    " gold\n1: Buy \n2: Return to previous Menu\n";
+                cin >> userChoice;
+                userInt = stoi(userChoice);
+                switch (userInt)
+                {
+                case 1:
+                    system("CLS");
+                    if (theHall.totalGold >= theShop.shopItem.top().price)
+                    {
+                        theHall.hallItem.emplace_back(theShop.shopItem.top());
+                        cout << "You have bought " << theShop.shopItem.top().name << " for " << theShop.shopItem.top().price
+                            <<
+                            " gold\n";
+                        theHall.totalGold -= theShop.shopItem.top().price;
+                        theShop.shopItem.pop();
+                        SaveGold(theHall.totalGold);
+                        SaveItems(theHall.hallItem, theShop.shopItem);
+                    }
+                    else
+                    {
+                        system("CLS");
+                        cout << "You don't have enough gold.\n";
+                    }
+                    PressEnter2();
+                    system("CLS");
+                    break;
+                case 2:
+                    system("CLS");
+                    break;
+                }
             }
         }
         while (userInt != 2);
     }
 }
+
 
 void DisplayPartyInfo()
 {
@@ -859,6 +874,7 @@ void DisplayPartyInfo()
             x.DisplayCharInfo();
     }
     PressEnter2();
+    system("CLS");
 }
 
 
@@ -969,7 +985,6 @@ void RecruitPartyMember(vector<Character>& characters)
                 theHall.totalGold -= 10;
                 SaveGold(theHall.totalGold);
                 recruit_queue_wizard.pop();
-                
             }
             PressEnter2();
             system("CLS");
@@ -996,10 +1011,10 @@ void DisplayHall()
     cout << "Your vault contains " << theHall.totalGold << " gold\n\n" << "The Hall is furnished with: \n";
     if (!theHall.hallItem.empty())
     {
-    for (auto hall_item : theHall.hallItem)
-    {
-        hall_item.DisplayItemHall();
-    }
+        for (auto hall_item : theHall.hallItem)
+        {
+            hall_item.DisplayItemHall();
+        }
     }
     else
     {
@@ -1008,10 +1023,10 @@ void DisplayHall()
     cout << "\nThe trophy room is adorned with the following trophies : ";
     if (!theHall.trophies.empty())
     {
-    for (auto hall_trophy : theHall.trophies)
-    {
-        cout << '\n' << hall_trophy;
-    }
+        for (auto hall_trophy : theHall.trophies)
+        {
+            cout << '\n' << hall_trophy;
+        }
     }
     else
     {
@@ -1144,8 +1159,8 @@ void CreateShop()
         "Elaborate chandeliers hanging from the ceiling, adorned with magical orbs to provide soft, warm lighting throughout the hall.",
         "Magical Chandeliers", 100));
     theShop.shopItem.push(ShopItem(
-            "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
-            "Stone Fireplace with Hearth", 50));
+        "A large hearth built from stone, providing warmth and a focal point for the common room, with a mantle for displaying trinkets or trophies.",
+        "Stone Fireplace with Hearth", 50));
     theShop.shopItem.push(ShopItem(
         "Sturdy wooden tables and benches, where your party can gather to dine and socialize.", "Tables and Benches",
         25));
